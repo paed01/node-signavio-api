@@ -1,0 +1,32 @@
+{
+  "name": "signavio-api",
+  "version": "0.1.0",
+  "description": "Unofficial node signavio workflow api wrapper",
+  "repository": "git://github.com/paed01/node-signavio-api",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test-cov-lcov",
+    "doc": "node ./scripts/doc.js > ./docs/API.md"
+  },
+  "keywords": [
+    "signavio",
+    "workflow",
+    "api"
+  ],
+  "author": "Pål Edman <pal.edman@outlook.com>",
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "debug": "^2.2.0",
+    "joi": "^8.0.5",
+    "lodash": "^4.11.1",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {
+    "code": "^2.2.1",
+    "coveralls": "^2.11.9",
+    "lab": "^10.3.2",
+    "nock": "^8.0.0",
+    "unnecessary": "^1.3.1"
+  },
+  "license": "BSD-3-Clause"
+}

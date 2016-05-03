@@ -1,0 +1,11 @@
+## just in .npmignore
+.eslint*
+.jsbeautifyrc
+.jscs*
+.travis.yml
+docs/
+scripts/
+test/
+Makefile
+coverage.*
+npm-debug.log
