@@ -24,23 +24,6 @@ lab.experiment('Cases', () => {
     done();
   });
 
-  lab.experiment('#close', () => {
-    lab.before((done) => {
-      scope
-        .post('/test-org/cases/case-1/close')
-        .reply(200);
-      done();
-    });
-
-    lab.test('closes case', (done) => {
-      cases.close('test-org', 'case-1', (err) => {
-        if (err) return done(err);
-        scope.done();
-        done();
-      });
-    });
-  });
-
   lab.experiment('#cancel', () => {
     lab.before((done) => {
       scope

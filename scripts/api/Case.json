@@ -3,208 +3,10 @@
   "swaggerVersion" : "1.2",
   "basePath" : "https://workflow.signavio.com/api/v1",
   "apis" : [ {
-    "path" : "/about",
+    "path" : "/{organizationKey}/cases",
     "operations" : [ {
       "method" : "GET",
-      "nickname" : "/about",
-      "type" : "About",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/login/{providerKey}",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/login/{providerKey}",
-      "type" : "ServiceLogin",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "providerKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "body",
-        "name" : "serviceLogin",
-        "dataType" : "ServiceLogin",
-        "required" : true
-      } ]
-    }, {
-      "method" : "PUT",
-      "nickname" : "/login/{providerKey}",
-      "type" : "ServiceLogin",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "providerKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "code",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "state",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "error",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "error_description",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "body",
-        "name" : "serviceLogin",
-        "dataType" : "ServiceLogin",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/registrations",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/registrations",
-      "type" : "EmptyObject",
-      "parameters" : [ {
-        "paramType" : "body",
-        "name" : "registrationRequest",
-        "dataType" : "RegistrationRequest",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/registrations/{code}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/registrations/{code}",
-      "type" : "Registration",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "code",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/registrations/{code}/activate",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/registrations/{code}/activate",
-      "type" : "LoginResponse",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "code",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "body",
-        "name" : "registrationRequest",
-        "dataType" : "RegistrationRequest",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/registrations/{code}/picture",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/registrations/{code}/picture",
-      "type" : "FileStream",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "code",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    }, {
-      "method" : "POST",
-      "nickname" : "/registrations/{code}/picture",
-      "type" : "EmptyObject",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "code",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/registrations/{code}/pictureiframe",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/registrations/{code}/pictureiframe",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "code",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/users/confirm",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/users/confirm",
-      "type" : "LoginResponse",
-      "parameters" : [ {
-        "paramType" : "body",
-        "name" : "passwordResetConfirmation",
-        "dataType" : "PasswordResetConfirmation",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/users/login",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/users/login",
-      "parameters" : [ {
-        "paramType" : "body",
-        "name" : "loginRequest",
-        "dataType" : "LoginRequest",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/users/login/handover",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/users/login/handover",
-      "type" : "HandoverLogin",
-      "parameters" : [ {
-        "paramType" : "body",
-        "name" : "handoverLogin",
-        "dataType" : "HandoverLogin",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/users/reset",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/users/reset",
-      "type" : "EmptyObject",
-      "parameters" : [ {
-        "paramType" : "body",
-        "name" : "userMailAddress",
-        "dataType" : "UserMailAddress",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/users/{userId}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/users/{userId}",
-      "type" : "User",
+      "nickname" : "/{organizationKey}/cases",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -212,70 +14,102 @@
         "dataType" : "string",
         "required" : true
       }, {
-        "paramType" : "path",
-        "name" : "userId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    }, {
-      "method" : "PUT",
-      "nickname" : "/users/{userId}",
-      "type" : "User",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "userId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "body",
-        "name" : "patchUpdate",
-        "dataType" : "PatchUpdate",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/users/{userId}/picture",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/users/{userId}/picture",
-      "type" : "EmptyObject",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "userId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/users/{userId}/pictureiframe",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/users/{userId}/pictureiframe",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "userId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/users",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/users",
-      "parameters" : [ {
         "paramType" : "path",
         "name" : "organizationKey",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "query",
-        "name" : "emailAddress",
+        "name" : "editorWorkflowId",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "query",
-        "name" : "name",
+        "name" : "closed",
+        "dataType" : "boolean",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "canceled",
+        "dataType" : "boolean",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "sorting",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "workflowDeleted",
+        "dataType" : "boolean",
+        "required" : true
+      } ]
+    }, {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/cases",
+      "type" : "CaseDetail",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "body",
+        "name" : "newCase",
+        "dataType" : "NewCase",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/cases/export/csv",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/cases/export/csv",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "closed",
+        "dataType" : "boolean",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "canceled",
+        "dataType" : "boolean",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "sorting",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "workflowDeleted",
+        "dataType" : "boolean",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "format",
         "dataType" : "string",
         "required" : true
       }, {
@@ -291,11 +125,10 @@
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/users/{userId}",
+    "path" : "/{organizationKey}/cases/{caseId}",
     "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/users/{userId}",
-      "type" : "User",
+      "method" : "DELETE",
+      "nickname" : "/{organizationKey}/cases/{caseId}",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -309,17 +142,49 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "userId",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    }, {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/cases/{caseId}",
+      "type" : "CaseDetail",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
         "dataType" : "string",
         "required" : true
       } ]
     }, {
       "method" : "PUT",
-      "nickname" : "/{organizationKey}/users/{userId}",
-      "type" : "User",
+      "nickname" : "/{organizationKey}/cases/{caseId}",
+      "type" : "CaseDetail",
       "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
         "paramType" : "path",
-        "name" : "userId",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
         "dataType" : "string",
         "required" : true
       }, {
@@ -330,11 +195,11 @@
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/users/{userId}/handover",
+    "path" : "/{organizationKey}/cases/{caseId}/cancel",
     "operations" : [ {
       "method" : "POST",
-      "nickname" : "/{organizationKey}/users/{userId}/handover",
-      "type" : "HandoverLogin",
+      "nickname" : "/{organizationKey}/cases/{caseId}/cancel",
+      "type" : "CaseDetail",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -348,89 +213,57 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "userId",
+        "name" : "caseId",
         "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "body",
-        "name" : "handoverLogin",
-        "dataType" : "HandoverLogin",
         "required" : true
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/users/{userId}/leave",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/{organizationKey}/users/{userId}/leave",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "userId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "body",
-        "name" : "leaveRequest",
-        "dataType" : "LeaveRequest",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/users/{userId}/picture",
+    "path" : "/{organizationKey}/cases/{caseId}/events",
     "operations" : [ {
       "method" : "GET",
-      "nickname" : "/{organizationKey}/users/{userId}/picture",
-      "type" : "FileStream",
+      "nickname" : "/{organizationKey}/cases/{caseId}/events",
       "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
         "paramType" : "path",
         "name" : "organizationKey",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "userId",
+        "name" : "caseId",
         "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "taskId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "type",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "offset",
+        "dataType" : "integer",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "pagesize",
+        "dataType" : "integer",
         "required" : true
       } ]
     }, {
       "method" : "POST",
-      "nickname" : "/{organizationKey}/users/{userId}/picture",
-      "type" : "EmptyObject",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "userId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/users/{userId}/pictureiframe",
-    "operations" : [ {
-      "method" : "POST",
-      "nickname" : "/{organizationKey}/users/{userId}/pictureiframe",
-      "parameters" : [ {
-        "paramType" : "path",
-        "name" : "userId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{workspaceKey}/users/{userId}/preferences",
-    "operations" : [ {
-      "method" : "PUT",
-      "nickname" : "/{workspaceKey}/users/{userId}/preferences",
+      "nickname" : "/{organizationKey}/cases/{caseId}/events",
+      "type" : "Event",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -438,10 +271,198 @@
         "dataType" : "string",
         "required" : true
       }, {
-        "paramType" : "body",
-        "name" : "put any json in here",
+        "paramType" : "path",
+        "name" : "organizationKey",
         "dataType" : "string",
-        "required" : false
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "body",
+        "name" : "event",
+        "dataType" : "Event",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/cases/{caseId}/events/{eventId}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/cases/{caseId}/events/{eventId}",
+      "type" : "Event",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "eventId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "taskId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/cases/{caseId}/events/{parentId}",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/cases/{caseId}/events/{parentId}",
+      "type" : "Event",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "parentId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "body",
+        "name" : "event",
+        "dataType" : "Event",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/cases/{caseId}/files",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/cases/{caseId}/files",
+      "type" : "File",
+      "parameters" : [ {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/cases/{caseId}/files/{fileId}",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/cases/{caseId}/files/{fileId}",
+      "type" : "File",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "fileId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/cases/{caseId}/iframe/files",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/cases/{caseId}/iframe/files",
+      "parameters" : [ {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/cases/{caseId}/tasks",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/cases/{caseId}/tasks",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "caseId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "completed",
+        "dataType" : "boolean",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/info/cases",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/info/cases",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
       } ]
     } ]
   } ],

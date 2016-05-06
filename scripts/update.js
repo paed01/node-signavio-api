@@ -15,13 +15,13 @@ if (process.argv.length > 2) {
   destinationDir = path.join(baseDir, process.argv[2]);
 }
 
-let docUri = 'https://workflow.signavio.com/api/v1/docs';
+const docUri = 'https://workflow.signavio.com/api/v1/docs';
 
 function update() {
   getDocs(() => {
     console.log('docs completed');
 
-    let docs = require(path.join(destinationDir, 'docs.json'));
+    const docs = require(path.join(destinationDir, 'docs.json'));
     console.log('docs version is v%s', docs.apiVersion);
 
     getApis(docs, () => {
@@ -32,8 +32,8 @@ function update() {
 
 function getDocs(callback) {
   fs.mkdir(destinationDir, () => {
-    let docsFile = path.join(destinationDir, 'docs.json');
-    let ws = fs.createWriteStream(docsFile);
+    const docsFile = path.join(destinationDir, 'docs.json');
+    const ws = fs.createWriteStream(docsFile);
 
     console.log('getting docs at %s to %s', docUri, docsFile);
 
@@ -54,8 +54,8 @@ function getApis(docs, callback) {
 }
 
 function getApi(api, callback) {
-  let ws = fs.createWriteStream(path.join(destinationDir, `${api.path}.json`));
-  let apiUri = docUri + api.path;
+  const ws = fs.createWriteStream(path.join(destinationDir, `${api.path}.json`));
+  const apiUri = docUri + api.path;
 
   console.log('getting api docs at', apiUri);
 

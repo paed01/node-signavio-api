@@ -16,7 +16,7 @@ process.on('exit', (code, signal) => {
 
 function logUnused() {
   /* eslint no-console:0 */
-  let untouched = unnecessary.untouched();
+  const untouched = unnecessary.untouched();
   if (!untouched.length) return;
   console.log(`\n\x1b[31mFound ${untouched.length} potentially unused file${untouched.length > 1 ? 's' : ''}:\x1b[0m`);
   unnecessary.untouched().forEach((file) => {

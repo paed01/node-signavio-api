@@ -14,7 +14,7 @@ lab.experiment('proxy', () => {
   let Mock, scope;
 
   lab.before((done) => {
-    let template = {
+    const template = {
       basePath: 'http://testapi',
       apis: [{
         path: '/{organizationKey}/status',
@@ -36,7 +36,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('proxies the request with authorization', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       authorization: 'auth-token'
     });
     scope
@@ -56,7 +56,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('proxies the request to uri if defined', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       authorization: 'auth-token'
     });
     scope
@@ -76,7 +76,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('HTTP method GET is default', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       authorization: 'auth-token'
     });
     scope
@@ -95,7 +95,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('HTTP method POST without body works', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       authorization: 'auth-token'
     });
     scope
@@ -115,7 +115,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('returns error in callback', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       authorization: 'auth-token'
     });
 
@@ -128,7 +128,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('proxies the request without authorization if not defined', (done) => {
-    let mock = new Mock();
+    const mock = new Mock();
     scope
       .put('/testing-proxy/test-org/without-auth')
       .reply(201);
@@ -145,7 +145,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('re-authenticates if call was unauthorized', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       users: {
         login: (u, p, cb) => {
           cb(null, {
@@ -160,7 +160,7 @@ lab.experiment('proxy', () => {
         password: 'signavio-passw0rd'
       }
     });
-    let pathname = '/testing-proxy/test-org/re-auth';
+    const pathname = '/testing-proxy/test-org/re-auth';
     scope
       .get(pathname)
       .reply(401, {
@@ -183,7 +183,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('returns error in callback authorization request failed', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       users: {
         login: (u, p, cb) => {
           return cb(new Error('Nope'));
@@ -211,7 +211,7 @@ lab.experiment('proxy', () => {
   });
 
   lab.test('returns unauthorized if proxy authorization option is false', (done) => {
-    let mock = new Mock({
+    const mock = new Mock({
       credentials: {
         username: 'signavio-user',
         password: 'signavio-passw0rd'

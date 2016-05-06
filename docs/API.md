@@ -1,7 +1,7 @@
-3.0.4 API Reference (v1)
+0.1.0 API Reference (v1)
 ===
 Auto-generated Api documentation.
-Base path: https://app.effektif.com/api/v1
+Base path: https://workflow.signavio.com/api/v1
 **Table of contents:**
 - [File](#file)
   - [`getUserInstance`](#file-getuserinstance)
@@ -20,13 +20,15 @@ Base path: https://app.effektif.com/api/v1
   - [`proxy`](#case-proxy)
   - [`getCases`](#case-getcases)
   - [`createCases`](#case-createcases)
+  - [`getCasesExportCsv`](#case-getcasesexportcsv)
   - [`deleteCase`](#case-deletecase)
   - [`getCase`](#case-getcase)
   - [`updateCase`](#case-updatecase)
   - [`cancel`](#case-cancel)
-  - [`close`](#case-close)
   - [`getCaseEvents`](#case-getcaseevents)
   - [`createCaseEvents`](#case-createcaseevents)
+  - [`getCaseEvent`](#case-getcaseevent)
+  - [`createCaseEvent`](#case-createcaseevent)
   - [`createCaseFiles`](#case-createcasefiles)
   - [`createCaseFile`](#case-createcasefile)
   - [`createCaseIframeFiles`](#case-createcaseiframefiles)
@@ -42,7 +44,6 @@ Base path: https://app.effektif.com/api/v1
   - [`updateTask`](#task-updatetask)
   - [`completeTask`](#task-completetask)
   - [`updateTaskFormField`](#task-updatetaskformfield)
-  - [`getTaskMail`](#task-gettaskmail)
   - [`reopenTask`](#task-reopentask)
 - [Workflow](#workflow)
   - [`getUserInstance`](#workflow-getuserinstance)
@@ -67,10 +68,6 @@ Base path: https://app.effektif.com/api/v1
   - [`createWorkflowVersions`](#workflow-createworkflowversions)
   - [`createWorkflowVersionRestore`](#workflow-createworkflowversionrestore)
   - [`createWorkflowVersionPublish`](#workflow-createworkflowversionpublish)
-- [WorkflowEngine](#workflowengine)
-  - [`getUserInstance`](#workflowengine-getuserinstance)
-  - [`proxy`](#workflowengine-proxy)
-  - [`createEngineWorkflowInstances`](#workflowengine-createengineworkflowinstances)
 - [Organization](#organization)
   - [`getUserInstance`](#organization-getuserinstance)
   - [`proxy`](#organization-proxy)
@@ -87,11 +84,9 @@ Base path: https://app.effektif.com/api/v1
   - [`getInfoLicenses`](#organization-getinfolicenses)
   - [`deleteInvitations`](#organization-deleteinvitations)
   - [`createInvitationsResend`](#organization-createinvitationsresend)
-  - [`getLdapGroupMembers`](#organization-getldapgroupmembers)
-  - [`getLdapGroups`](#organization-getldapgroups)
-  - [`getLdapUsers`](#organization-getldapusers)
   - [`createLicenseProfiles`](#organization-createlicenseprofiles)
   - [`getLicenses`](#organization-getlicenses)
+  - [`createLicenses`](#organization-createlicenses)
   - [`getLicense`](#organization-getlicense)
   - [`updateLicense`](#organization-updatelicense)
   - [`getOrganizations`](#organization-getorganizations)
@@ -112,6 +107,7 @@ Base path: https://app.effektif.com/api/v1
   - [`getServices`](#service-getservices)
   - [`createServicesOauthStart`](#service-createservicesoauthstart)
   - [`deleteServiceAccount`](#service-deleteserviceaccount)
+  - [`getServiceAccountInputsResource`](#service-getserviceaccountinputsresource)
   - [`createServiceActionInstancesLock`](#service-createserviceactioninstanceslock)
   - [`createServiceActionInstancesEnd`](#service-createserviceactioninstancesend)
   - [`getServiceIcon`](#service-getserviceicon)
@@ -305,6 +301,25 @@ Represents call to:
 - `body`: [CaseDetail](#model-casedetail)
 - `resp`: Http response
 
+## Case getCasesExportCsv
+Represents call to:
+`GET /{organizationKey}/cases/export/csv`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `editorWorkflowId`: string
+- `closed`: boolean
+- `canceled`: boolean
+- `sorting`: string
+- `workflowDeleted`: boolean
+- `format`: string
+- `offset`: number
+- `pagesize`: number
+- `callback`: **required** function - function(err, body, resp)
+
+
 ## Case deleteCase
 Represents call to:
 `DELETE /{organizationKey}/cases/{caseId}`
@@ -343,7 +358,7 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `caseId`: **required** string
-- `case`: **required** object [Case](#model-case)
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -355,23 +370,6 @@ Represents call to:
 ## Case cancel
 Represents call to:
 `POST /{organizationKey}/cases/{caseId}/cancel`
-
-> Requires authorization
-
-**Arguments:**
-- `organizationKey`: **required** string
-- `caseId`: **required** string
-- `callback`: **required** function - function(err, body, resp)
-
-
-**Callback:**
-- `error`: Error or null
-- `body`: [CaseDetail](#model-casedetail)
-- `resp`: Http response
-
-## Case close
-Represents call to:
-`POST /{organizationKey}/cases/{caseId}/close`
 
 > Requires authorization
 
@@ -411,6 +409,44 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `caseId`: **required** string
+- `event`: **required** object [Event](#model-event)
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [Event](#model-event)
+- `resp`: Http response
+
+## Case getCaseEvent
+Represents call to:
+`GET /{organizationKey}/cases/{caseId}/events/{eventId}`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `caseId`: **required** string
+- `eventId`: **required** string
+- `taskId`: string
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [Event](#model-event)
+- `resp`: Http response
+
+## Case createCaseEvent
+Represents call to:
+`POST /{organizationKey}/cases/{caseId}/events/{parentId}`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `caseId`: **required** string
+- `parentId`: **required** string
 - `event`: **required** object [Event](#model-event)
 - `callback`: **required** function - function(err, body, resp)
 
@@ -517,6 +553,7 @@ Represents call to:
 - `dueDate`: array _api type array_
 - `process`: string
 - `completed`: boolean
+- `assigneeId`: string
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -575,7 +612,7 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `taskId`: **required** string
-- `task`: **required** object [Task](#model-task)
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -593,7 +630,7 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `taskId`: **required** string
-- `fields`: **required** array [FormInstanceField](#model-forminstancefield)
+- `array of FormInstanceFields`: array _api type array_
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -619,24 +656,6 @@ Represents call to:
 **Callback:**
 - `error`: Error or null
 - `body`: [FormInstanceField](#model-forminstancefield)
-- `resp`: Http response
-
-## Task getTaskMail
-Represents call to:
-`GET /{organizationKey}/tasks/{taskId}/mails/{mailId}`
-
-> Requires authorization
-
-**Arguments:**
-- `organizationKey`: **required** string
-- `taskId`: **required** string
-- `mailId`: **required** string
-- `callback`: **required** function - function(err, body, resp)
-
-
-**Callback:**
-- `error`: Error or null
-- `body`: [Email](#model-email)
 - `resp`: Http response
 
 ## Task reopenTask
@@ -697,6 +716,7 @@ Represents call to:
 - `offset`: number
 - `pagesize`: number
 - `trigger`: string
+- `name`: string
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -995,41 +1015,6 @@ Represents call to:
 - `body`: [ExecutableWorkflow](#model-executableworkflow)
 - `resp`: Http response
 
-# WorkflowEngine
-**Constructor:**
-- `options`
-  - `authorization`: string - Authorization token, will be set as Authorization http header
-  - `credentials`: object - Default credentials
-    - `username`: string - Username
-    - `password`: string - Password
-  - `basePath`: string - Effektif-api base url, defaults to api endpoint documentation basePath
-  - `onUnauthorized`: function - Excecuted when an unauthorized call was made or authorization token is missing. Receives operation arguments and callback
-  - `users`: object - Users instance
-    - `login`: **required** function - Login function
-  - `log`: function - Logging function, defaults to console.log
-  - `baseRequest`: function - Default request
-
-## WorkflowEngine getUserInstance
-
-## WorkflowEngine proxy
-
-## WorkflowEngine createEngineWorkflowInstances
-Represents call to:
-`POST /{organizationKey}/engine/workflow/instances`
-
-> Requires authorization
-
-**Arguments:**
-- `organizationKey`: **required** string
-- `triggerInstance`: **required** object [TriggerInstance](#model-triggerinstance)
-- `callback`: **required** function - function(err, body, resp)
-
-
-**Callback:**
-- `error`: Error or null
-- `body`: [WorkflowInstance](#model-workflowinstance)
-- `resp`: Http response
-
 # Organization
 **Constructor:**
 - `options`
@@ -1108,7 +1093,7 @@ Represents call to:
 
 **Arguments:**
 - `organizationKey`: **required** string
-- `organization`: **required** object [Organization](#model-organization)
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1183,7 +1168,7 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `groupId`: **required** string
-- `group`: **required** object [Group](#model-group)
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1225,42 +1210,6 @@ Represents call to:
 - `callback`: **required** function - function(err, body, resp)
 
 
-## Organization getLdapGroupMembers
-Represents call to:
-`GET /{organizationKey}/ldap/groupMembers`
-
-> Requires authorization
-
-**Arguments:**
-- `organizationKey`: **required** string
-- `ldapGroup`: **required** object [LdapGroup](#model-ldapgroup)
-- `callback`: **required** function - function(err, body, resp)
-
-
-## Organization getLdapGroups
-Represents call to:
-`GET /{organizationKey}/ldap/groups`
-
-> Requires authorization
-
-**Arguments:**
-- `organizationKey`: **required** string
-- `exclude`: string
-- `callback`: **required** function - function(err, body, resp)
-
-
-## Organization getLdapUsers
-Represents call to:
-`GET /{organizationKey}/ldap/users`
-
-> Requires authorization
-
-**Arguments:**
-- `organizationKey`: **required** string
-- `exclude`: string
-- `callback`: **required** function - function(err, body, resp)
-
-
 ## Organization createLicenseProfiles
 Represents call to:
 `POST /{organizationKey}/licenseProfiles/{profile}`
@@ -1286,6 +1235,18 @@ Represents call to:
 
 **Arguments:**
 - `organizationKey`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+## Organization createLicenses
+Represents call to:
+`POST /{organizationKey}/licenses`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `newAssignmentRequest`: **required** object [NewAssignmentRequest](#model-newassignmentrequest)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1315,7 +1276,7 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `licenseId`: **required** string
-- `license`: **required** object [License](#model-license)
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1461,7 +1422,7 @@ Represents call to:
 - `organizationKey`: **required** string
 - `serviceKey`: **required** string
 - `accountId`: **required** string
-- `account`: **required** object [Account](#model-account)
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1555,6 +1516,21 @@ Represents call to:
 - `organizationKey`: **required** string
 - `serviceKey`: **required** string
 - `accountId`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+## Service getServiceAccountInputsResource
+Represents call to:
+`GET /{organizationKey}/services/{serviceKey}/accounts/{accountId}/inputs/resource/{resourceId}/{optionalId}`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `serviceKey`: **required** string
+- `accountId`: **required** string
+- `resourceId`: **required** string
+- `optionalId`: **required** string
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1833,7 +1809,7 @@ Represents call to:
 
 **Arguments:**
 - `userId`: **required** string
-- `user`: **required** object [User](#model-user)
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1938,17 +1914,6 @@ Represents call to:
 # Models
 
 ## Model File
-- `contentType`: string
-- `created`: date
-- `name`: string
-- `id`: string
-- `mailId`: string
-- `organizationId`: string
-- `ownerId`: string
-- `pictureRegistrationId`: string
-- `sizeInBytes`: number
-- `caseId`: string
-- `userId`: string
 
 
 **Used by:**
@@ -1958,10 +1923,6 @@ Represents call to:
 [`Case.createCaseFile`](#case-createcasefile)
 
 ## Model FileStream
-- `inputStream`: binary
-- `contentType`: string
-- `contentDispositionInlineFileName`: string
-- `cacheControlMaxAgeInMillis`: number
 
 
 **Used by:**
@@ -1971,111 +1932,18 @@ Represents call to:
 [`User.getUserPicture`](#user-getuserpicture)
 
 ## Model NewCase
-- `properties`: any _api type Map_
-- `id`: string
-- `organizationId`: string
-- `name`: string
 - `nameLower`: string
-- `description`: string
-- `access`: any _api type AccessControlList_
-- `creatorId`: string
-- `createTime`: date
-- `dueDate`: date
 - `hasDueDate`: boolean
-- `priority`: number
 - `hasPriority`: boolean
-- `participantIds`: array string
-- `taskIds`: array string
-- `lastUpdated`: date
-- `canceled`: boolean
-- `closed`: boolean
-- `workflowInstanceId`: any _api type WorkflowInstanceId_
-- `sourceWorkflowId`: string
-- `workflowId`: string
-- `triggerInstance`: object
-  - `data`: any _api type Map_
-  - `workflowInstanceId`: any _api type WorkflowInstanceId_
-  - `workflowId`: any _api type WorkflowId_
-  - `sourceWorkflowId`: string
-  - `startActivityIds`: array string
-  - `businessKey`: string
-  - `callerWorkflowInstanceId`: any _api type WorkflowInstanceId_
-  - `callerActivityInstanceId`: string
 
 
 **Used by:**
 [`Case.createCases`](#case-createcases)
 
 ## Model CaseDetail
-- `properties`: any _api type Map_
-- `id`: string
-- `organizationId`: string
-- `name`: string
 - `nameLower`: string
-- `description`: string
-- `access`: any _api type AccessControlList_
-- `creatorId`: string
-- `createTime`: date
-- `dueDate`: date
 - `hasDueDate`: boolean
-- `priority`: number
 - `hasPriority`: boolean
-- `participantIds`: array string
-- `taskIds`: array string
-- `lastUpdated`: date
-- `canceled`: boolean
-- `closed`: boolean
-- `workflowInstanceId`: any _api type WorkflowInstanceId_
-- `sourceWorkflowId`: string
-- `workflowId`: string
-- `creator`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `tasks`: array [TaskDetail](#model-taskdetail)
-- `events`: array [Event](#model-event)
-- `participants`: array [User](#model-user)
-- `sourceWorkflow`: object
-  - `properties`: any _api type Map_
-  - `name`: string
-  - `description`: string
-  - `bpmn`: any _api type XmlElement_
-  - `activities`: array any _api type Activity_
-  - `transitions`: array any _api type Transition_
-  - `variables`: array any _api type Variable_
-  - `timers`: array any _api type Timer_
-  - `id`: any _api type WorkflowId_
-  - `trigger`: any _api type Trigger_
-  - `enableCases`: boolean
-  - `diagram`: any _api type Diagram_
-  - `ownerId`: string
-  - `editorId`: string
-  - `editorLock`: date
-  - `lastUpdated`: date
-  - `category`: string
-  - `changed`: boolean
-  - `latestVersion`: string
-  - `caseColumns`: array any _api type CaseColumn_
-  - `template`: boolean
-  - `templateId`: string
-  - `nameLower`: string
 
 
 **Used by:**
@@ -2083,211 +1951,36 @@ Represents call to:
 [`Case.getCase`](#case-getcase)
 [`Case.updateCase`](#case-updatecase)
 [`Case.cancel`](#case-cancel)
-[`Case.close`](#case-close)
 
-## Model Case
-- `properties`: any _api type Map_
-- `id`: string
-- `organizationId`: string
-- `name`: string
-- `nameLower`: string
-- `description`: string
-- `access`: any _api type AccessControlList_
-- `creatorId`: string
-- `createTime`: date
-- `dueDate`: date
-- `hasDueDate`: boolean
-- `priority`: number
-- `hasPriority`: boolean
-- `participantIds`: array string
-- `taskIds`: array string
-- `lastUpdated`: date
-- `canceled`: boolean
-- `closed`: boolean
-- `workflowInstanceId`: any _api type WorkflowInstanceId_
-- `sourceWorkflowId`: string
-- `workflowId`: string
+## Model PatchUpdate
 
 
 **Used by:**
 [`Case.updateCase`](#case-updatecase)
+[`Task.updateTask`](#task-updatetask)
+[`Organization.update`](#organization-update)
+[`Organization.updateGroups`](#organization-updategroups)
+[`Organization.updateLicense`](#organization-updatelicense)
+[`Service.updateServiceAccount`](#service-updateserviceaccount)
+[`User.updateUser`](#user-updateuser)
 
 ## Model Event
-- `id`: string
-- `caseId`: string
-- `name`: string
-- `task`: object
-  - `properties`: any _api type Map_
-  - `id`: string
-  - `organizationId`: string
-  - `name`: string
-  - `nameLower`: string
-  - `description`: string
-  - `access`: any _api type AccessControlList_
-  - `creatorId`: string
-  - `createTime`: date
-  - `assigneeId`: string
-  - `candidateIds`: array string
-  - `candidateGroupIds`: array string
-  - `caseId`: string
-  - `parentId`: string
-  - `subtaskIds`: array string
-  - `dueDate`: date
-  - `lastUpdated`: date
-  - `canceled`: boolean
-  - `completed`: boolean
-  - `activityId`: string
-  - `activityInstanceId`: string
-  - `activityInstanceMessage`: boolean
-  - `hasForm`: boolean
-  - `workflowInstanceId`: any _api type WorkflowInstanceId_
-  - `sourceWorkflowId`: string
-  - `workflowId`: any _api type WorkflowId_
-  - `roleVariableId`: string
-  - `form`: object
-    - `description`: string
-    - `fields`: array [FormInstanceField](#model-forminstancefield)
-- `taskId`: string
-- `time`: date
-- `user`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `userId`: string
 
 
 **Used by:**
 [`Case.createCaseEvents`](#case-createcaseevents)
+[`Case.getCaseEvent`](#case-getcaseevent)
+[`Case.createCaseEvent`](#case-createcaseevent)
 
 ## Model NewTask
-- `properties`: any _api type Map_
-- `id`: string
-- `organizationId`: string
-- `name`: string
 - `nameLower`: string
-- `description`: string
-- `access`: any _api type AccessControlList_
-- `creatorId`: string
-- `createTime`: date
-- `assigneeId`: string
-- `candidateIds`: array string
-- `candidateGroupIds`: array string
-- `caseId`: string
-- `parentId`: string
-- `subtaskIds`: array string
-- `dueDate`: date
-- `lastUpdated`: date
-- `canceled`: boolean
-- `completed`: boolean
-- `activityId`: string
-- `activityInstanceId`: string
-- `activityInstanceMessage`: boolean
-- `hasForm`: boolean
-- `workflowInstanceId`: any _api type WorkflowInstanceId_
-- `sourceWorkflowId`: string
-- `workflowId`: any _api type WorkflowId_
-- `roleVariableId`: string
-- `form`: object
-  - `description`: string
-  - `fields`: array [FormInstanceField](#model-forminstancefield)
 
 
 **Used by:**
 [`Task.createTasks`](#task-createtasks)
 
 ## Model TaskDetail
-- `properties`: any _api type Map_
-- `id`: string
-- `organizationId`: string
-- `name`: string
 - `nameLower`: string
-- `description`: string
-- `access`: any _api type AccessControlList_
-- `creatorId`: string
-- `createTime`: date
-- `assigneeId`: string
-- `candidateIds`: array string
-- `candidateGroupIds`: array string
-- `caseId`: string
-- `parentId`: string
-- `subtaskIds`: array string
-- `dueDate`: date
-- `lastUpdated`: date
-- `canceled`: boolean
-- `completed`: boolean
-- `activityId`: string
-- `activityInstanceId`: string
-- `activityInstanceMessage`: boolean
-- `hasForm`: boolean
-- `workflowInstanceId`: any _api type WorkflowInstanceId_
-- `sourceWorkflowId`: string
-- `workflowId`: any _api type WorkflowId_
-- `roleVariableId`: string
-- `form`: object
-  - `description`: string
-  - `fields`: array [FormInstanceField](#model-forminstancefield)
-- `creator`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `assignee`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `candidates`: array [User](#model-user)
-- `candidateGroups`: array [Group](#model-group)
-- `subtasks`: array [TaskDetail](#model-taskdetail)
 
 
 **Used by:**
@@ -2297,177 +1990,21 @@ Represents call to:
 [`Task.completeTask`](#task-completetask)
 [`Task.reopenTask`](#task-reopentask)
 
-## Model Task
-- `properties`: any _api type Map_
-- `id`: string
-- `organizationId`: string
-- `name`: string
-- `nameLower`: string
-- `description`: string
-- `access`: any _api type AccessControlList_
-- `creatorId`: string
-- `createTime`: date
-- `assigneeId`: string
-- `candidateIds`: array string
-- `candidateGroupIds`: array string
-- `caseId`: string
-- `parentId`: string
-- `subtaskIds`: array string
-- `dueDate`: date
-- `lastUpdated`: date
-- `canceled`: boolean
-- `completed`: boolean
-- `activityId`: string
-- `activityInstanceId`: string
-- `activityInstanceMessage`: boolean
-- `hasForm`: boolean
-- `workflowInstanceId`: any _api type WorkflowInstanceId_
-- `sourceWorkflowId`: string
-- `workflowId`: any _api type WorkflowId_
-- `roleVariableId`: string
-- `form`: object
-  - `description`: string
-  - `fields`: array [FormInstanceField](#model-forminstancefield)
-
-
-**Used by:**
-[`Task.updateTask`](#task-updatetask)
-
 ## Model FormInstanceField
-- `properties`: any _api type Map_
-- `id`: string
-- `key`: string
-- `name`: string
-- `description`: string
-- `type`: any _api type DataType_
-- `readOnly`: boolean
-- `required`: boolean
-- `asButtons`: boolean
-- `value`: any _api type Object_
 
 
 **Used by:**
-[`Task.completeTask`](#task-completetask)
 [`Task.updateTaskFormField`](#task-updatetaskformfield)
 
-## Model Email
-- `id`: string
-- `headers`: any _api type Map_
-- `attachmentIds`: array string
-- `bcc`: array string
-- `bodyText`: string
-- `bodyHtml`: string
-- `cc`: array string
-- `from`: array string
-- `fromName`: string
-- `organizationId`: string
-- `preview`: string
-- `replyTo`: array string
-- `source`: string
-- `subject`: string
-- `sendDate`: date
-- `to`: array string
-
-
-**Used by:**
-[`Task.getTaskMail`](#task-gettaskmail)
-
 ## Model NewWorkflow
-- `properties`: any _api type Map_
-- `name`: string
-- `description`: string
-- `bpmn`: any _api type XmlElement_
-- `activities`: array any _api type Activity_
-- `transitions`: array any _api type Transition_
-- `variables`: array any _api type Variable_
-- `timers`: array any _api type Timer_
-- `id`: any _api type WorkflowId_
-- `trigger`: any _api type Trigger_
-- `enableCases`: boolean
-- `diagram`: any _api type Diagram_
-- `ownerId`: string
-- `editorId`: string
-- `editorLock`: date
-- `lastUpdated`: date
-- `category`: string
-- `changed`: boolean
-- `latestVersion`: string
-- `caseColumns`: array any _api type CaseColumn_
-- `template`: boolean
-- `templateId`: string
 - `nameLower`: string
-- `isPrivate`: boolean
 
 
 **Used by:**
 [`Workflow.createWorkflows`](#workflow-createworkflows)
 
 ## Model EditorWorkflowDetail
-- `properties`: any _api type Map_
-- `name`: string
-- `description`: string
-- `bpmn`: any _api type XmlElement_
-- `activities`: array any _api type Activity_
-- `transitions`: array any _api type Transition_
-- `variables`: array any _api type Variable_
-- `timers`: array any _api type Timer_
-- `id`: any _api type WorkflowId_
-- `trigger`: any _api type Trigger_
-- `enableCases`: boolean
-- `diagram`: any _api type Diagram_
-- `ownerId`: string
-- `editorId`: string
-- `editorLock`: date
-- `lastUpdated`: date
-- `category`: string
-- `changed`: boolean
-- `latestVersion`: string
-- `caseColumns`: array any _api type CaseColumn_
-- `template`: boolean
-- `templateId`: string
 - `nameLower`: string
-- `editor`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `owner`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
 
 
 **Used by:**
@@ -2478,46 +2015,12 @@ Represents call to:
 [`Workflow.createWorkflowVersionRestore`](#workflow-createworkflowversionrestore)
 
 ## Model AbstractWorkflow
-- `properties`: any _api type Map_
-- `name`: string
-- `description`: string
-- `bpmn`: any _api type XmlElement_
-- `activities`: array any _api type Activity_
-- `transitions`: array any _api type Transition_
-- `variables`: array any _api type Variable_
-- `timers`: array any _api type Timer_
-- `id`: any _api type WorkflowId_
-- `trigger`: any _api type Trigger_
-- `enableCases`: boolean
-- `diagram`: any _api type Diagram_
 
 
 **Used by:**
 [`Workflow.createWorkflowsImportBpmn`](#workflow-createworkflowsimportbpmn)
 
 ## Model EditorWorkflow
-- `properties`: any _api type Map_
-- `name`: string
-- `description`: string
-- `bpmn`: any _api type XmlElement_
-- `activities`: array any _api type Activity_
-- `transitions`: array any _api type Transition_
-- `variables`: array any _api type Variable_
-- `timers`: array any _api type Timer_
-- `id`: any _api type WorkflowId_
-- `trigger`: any _api type Trigger_
-- `enableCases`: boolean
-- `diagram`: any _api type Diagram_
-- `ownerId`: string
-- `editorId`: string
-- `editorLock`: date
-- `lastUpdated`: date
-- `category`: string
-- `changed`: boolean
-- `latestVersion`: string
-- `caseColumns`: array any _api type CaseColumn_
-- `template`: boolean
-- `templateId`: string
 - `nameLower`: string
 
 
@@ -2529,106 +2032,32 @@ Represents call to:
 [`Workflow.updateWorkflowUpdateBpmn`](#workflow-updateworkflowupdatebpmn)
 
 ## Model ScriptResult
-- `result`: any _api type Object_
-- `error`: string
-- `log`: string
-- `variableUpdates`: any _api type Map_
 
 
 **Used by:**
 [`Workflow.createWorkflowActivityTest`](#workflow-createworkflowactivitytest)
 
 ## Model FormInstance
-- `description`: string
-- `fields`: array [FormInstanceField](#model-forminstancefield)
 
 
 **Used by:**
 [`Workflow.getWorkflowStartForm`](#workflow-getworkflowstartform)
 
 ## Model VersionRequest
-- `commitMessage`: string
 
 
 **Used by:**
 [`Workflow.createWorkflowVersions`](#workflow-createworkflowversions)
 
 ## Model ExecutableWorkflow
-- `properties`: any _api type Map_
-- `name`: string
-- `description`: string
-- `bpmn`: any _api type XmlElement_
-- `activities`: array any _api type Activity_
-- `transitions`: array any _api type Transition_
-- `variables`: array any _api type Variable_
-- `timers`: array any _api type Timer_
-- `id`: any _api type WorkflowId_
-- `trigger`: any _api type Trigger_
-- `enableCases`: boolean
-- `diagram`: any _api type Diagram_
-- `sourceWorkflowId`: string
-- `createTime`: date
-- `creatorId`: string
 
 
 **Used by:**
 [`Workflow.createWorkflowVersions`](#workflow-createworkflowversions)
 [`Workflow.createWorkflowVersionPublish`](#workflow-createworkflowversionpublish)
 
-## Model TriggerInstance
-- `data`: any _api type Map_
-- `workflowInstanceId`: any _api type WorkflowInstanceId_
-- `workflowId`: any _api type WorkflowId_
-- `sourceWorkflowId`: string
-- `startActivityIds`: array string
-- `businessKey`: string
-- `callerWorkflowInstanceId`: any _api type WorkflowInstanceId_
-- `callerActivityInstanceId`: string
-
-
-**Used by:**
-[`WorkflowEngine.createEngineWorkflowInstances`](#workflowengine-createengineworkflowinstances)
-
-## Model WorkflowInstance
-- `properties`: any _api type Map_
-- `start`: date
-- `end`: date
-- `endState`: string
-- `duration`: number
-- `activityInstances`: array any _api type ActivityInstance_
-- `variableInstances`: array any _api type VariableInstance_
-- `timerInstances`: array any _api type TimerInstance_
-- `id`: any _api type WorkflowInstanceId_
-- `workflowId`: any _api type WorkflowId_
-- `businessKey`: string
-- `creatorId`: string
-- `callerWorkflowInstanceId`: any _api type WorkflowInstanceId_
-- `callerActivityInstanceId`: string
-- `caseId`: string
-
-
-**Used by:**
-[`WorkflowEngine.createEngineWorkflowInstances`](#workflowengine-createengineworkflowinstances)
-
 ## Model Organization
-- `id`: string
-- `key`: string
-- `name`: string
-- `createdBy`: string
-- `customCSS`: string
-- `disabled`: boolean
-- `licenseProfileIds`: array string
-- `licenseRequired`: boolean
-- `licenseType`: string
-- `admin`: boolean
-- `adminIds`: array string
-- `admins`: array [User](#model-user)
-- `memberIds`: array string
-- `systemUserIds`: array string
-- `systemUsers`: array [User](#model-user)
-- `invitations`: array string
-- `ldapConnector`: any _api type LdapConnector_
-- `timeZone`: string
+- `created`: date
 
 
 **Used by:**
@@ -2639,20 +2068,12 @@ Represents call to:
 [`Organization.getOrganizations`](#organization-getorganizations)
 
 ## Model SystemConfiguration
-- `registrationEnabled`: boolean
-- `authenticationProviders`: array string
-- `licenseTypes`: array any _api type LicenseType_
 
 
 **Used by:**
 [`Organization.getSystemconfiguration`](#organization-getsystemconfiguration)
 
 ## Model Group
-- `id`: string
-- `ldapDn`: string
-- `name`: string
-- `organizationId`: string
-- `userIds`: array string
 
 
 **Used by:**
@@ -2660,65 +2081,13 @@ Represents call to:
 [`Organization.createGroups`](#organization-creategroups)
 [`Organization.updateGroups`](#organization-updategroups)
 
-## Model LdapGroup
-- `name`: string
-- `memberCount`: any _api type Integer_
-- `dn`: string
+## Model NewAssignmentRequest
 
 
 **Used by:**
-[`Organization.getLdapGroupMembers`](#organization-getldapgroupmembers)
+[`Organization.createLicenses`](#organization-createlicenses)
 
 ## Model License
-- `id`: string
-- `creationDate`: date
-- `expirationDate`: date
-- `generatedById`: string
-- `invitee`: string
-- `organizationId`: string
-- `organization`: object
-  - `id`: string
-  - `key`: string
-  - `name`: string
-  - `createdBy`: string
-  - `customCSS`: string
-  - `disabled`: boolean
-  - `licenseProfileIds`: array string
-  - `licenseRequired`: boolean
-  - `licenseType`: string
-  - `admin`: boolean
-  - `adminIds`: array string
-  - `admins`: array [User](#model-user)
-  - `memberIds`: array string
-  - `systemUserIds`: array string
-  - `systemUsers`: array [User](#model-user)
-  - `invitations`: array string
-  - `ldapConnector`: any _api type LdapConnector_
-  - `timeZone`: string
-- `packages`: array string
-- `type`: string
-- `userId`: string
-- `user`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
 
 
 **Used by:**
@@ -2726,108 +2095,18 @@ Represents call to:
 [`Organization.updateLicense`](#organization-updatelicense)
 
 ## Model PurchaseOrder
-- `id`: string
-- `billingType`: string
-- `completed`: boolean
-- `completedById`: string
-- `completedBy`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `count`: number
-- `created`: date
-- `generatorIds`: array string
-- `licenseIds`: array string
-- `licenseType`: string
-- `message`: string
-- `muted`: boolean
-- `orderedById`: string
-- `orderedBy`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `organizationId`: string
-- `organization`: object
-  - `id`: string
-  - `key`: string
-  - `name`: string
-  - `createdBy`: string
-  - `customCSS`: string
-  - `disabled`: boolean
-  - `licenseProfileIds`: array string
-  - `licenseRequired`: boolean
-  - `licenseType`: string
-  - `admin`: boolean
-  - `adminIds`: array string
-  - `admins`: array [User](#model-user)
-  - `memberIds`: array string
-  - `systemUserIds`: array string
-  - `systemUsers`: array [User](#model-user)
-  - `invitations`: array string
-  - `ldapConnector`: any _api type LdapConnector_
-  - `timeZone`: string
 
 
 **Used by:**
 [`Organization.createPurchase`](#organization-createpurchase)
 
 ## Model NewUser
-- `emailAddress`: string
-- `password`: string
-- `firstName`: string
-- `lastName`: string
-- `color`: string
-- `systemUser`: boolean
-- `external`: boolean
-- `token`: string
-- `organizationIds`: array string
-- `license`: string
-- `licenseInfo`: string
 
 
 **Used by:**
 [`Organization.createUsers`](#organization-createusers)
 
 ## Model Account
-- `id`: string
-- `serviceKey`: string
-- `userId`: string
-- `access`: any _api type AccessControlList_
-- `restricted`: boolean
 
 
 **Used by:**
@@ -2836,40 +2115,24 @@ Represents call to:
 [`Service.updateServiceAccount`](#service-updateserviceaccount)
 
 ## Model OauthStartRequest
-- `path`: string
-- `serviceKey`: string
-- `accountId`: string
 
 
 **Used by:**
 [`Service.createServicesOauthStart`](#service-createservicesoauthstart)
 
 ## Model OauthStartResponse
-- `authorizationUrl`: string
 
 
 **Used by:**
 [`Service.createServicesOauthStart`](#service-createservicesoauthstart)
 
 ## Model ActionInstance
-- `id`: string
-- `organizationId`: string
-- `serviceKey`: string
-- `actionKey`: string
-- `editorWorkflowId`: string
-- `caseId`: string
-- `workflowInstanceId`: string
-- `activityInstanceId`: string
-- `configuration`: any _api type Map_
-- `inputValues`: any _api type Map_
-- `lock`: date
 
 
 **Used by:**
 [`Service.createServiceActionInstancesLock`](#service-createserviceactioninstanceslock)
 
 ## Model ActionInstanceEnd
-- `outputValues`: any _api type Map_
 
 
 **Used by:**
@@ -2886,20 +2149,12 @@ Represents call to:
 [`User.createUserPicture`](#user-createuserpicture)
 
 ## Model About
-- `version`: string
-- `buildDate`: string
-- `latestCommits`: array string
 
 
 **Used by:**
 [`User.getAbout`](#user-getabout)
 
 ## Model ServiceLogin
-- `stateReference`: string
-- `authenticationUrl`: string
-- `token`: string
-- `redirectTo`: string
-- `hostname`: string
 
 
 **Used by:**
@@ -2907,18 +2162,6 @@ Represents call to:
 [`User.updateLogin`](#user-updatelogin)
 
 ## Model RegistrationRequest
-- `emailAddress`: string
-- `password`: string
-- `firstName`: string
-- `lastName`: string
-- `phone`: string
-- `organizationName`: string
-- `color`: string
-- `newsletter`: boolean
-- `country`: string
-- `language`: string
-- `edition`: string
-- `timeZone`: string
 
 
 **Used by:**
@@ -2926,82 +2169,13 @@ Represents call to:
 [`User.activateRegistration`](#user-activateregistration)
 
 ## Model Registration
-- `id`: string
-- `code`: string
-- `created`: date
-- `edition`: string
-- `newsletter`: boolean
-- `organization`: object
-  - `id`: string
-  - `key`: string
-  - `name`: string
-  - `createdBy`: string
-  - `customCSS`: string
-  - `disabled`: boolean
-  - `licenseProfileIds`: array string
-  - `licenseRequired`: boolean
-  - `licenseType`: string
-  - `admin`: boolean
-  - `adminIds`: array string
-  - `admins`: array [User](#model-user)
-  - `memberIds`: array string
-  - `systemUserIds`: array string
-  - `systemUsers`: array [User](#model-user)
-  - `invitations`: array string
-  - `ldapConnector`: any _api type LdapConnector_
-  - `timeZone`: string
-- `organizationId`: string
-- `token`: string
-- `user`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
+- `pictureId`: string
 
 
 **Used by:**
 [`User.getRegistration`](#user-getregistration)
 
 ## Model LoginResponse
-- `token`: string
-- `user`: object
-  - `id`: string
-  - `admin`: boolean
-  - `color`: string
-  - `country`: string
-  - `created`: date
-  - `disabled`: boolean
-  - `external`: boolean
-  - `firstName`: string
-  - `groupIds`: array string
-  - `lastName`: string
-  - `ldapDn`: string
-  - `emailAddress`: string
-  - `licenses`: array [License](#model-license)
-  - `organizationIds`: array string
-  - `organizations`: array [Organization](#model-organization)
-  - `password`: string
-  - `phone`: string
-  - `preferences`: any _api type Map_
-  - `systemAdmin`: boolean
-  - `systemUser`: boolean
-- `organizations`: array [Organization](#model-organization)
 
 
 **Used by:**
@@ -3009,30 +2183,18 @@ Represents call to:
 [`User.createUsersConfirm`](#user-createusersconfirm)
 
 ## Model PasswordResetConfirmation
-- `code`: string
-- `password`: string
 
 
 **Used by:**
 [`User.createUsersConfirm`](#user-createusersconfirm)
 
 ## Model LoginRequest
-- `emailAddress`: string
-- `password`: string
-- `token`: string
-- `hostname`: string
-- `path`: string
-- `organizationKey`: string
 
 
 **Used by:**
 [`User.createUsersLogin`](#user-createuserslogin)
 
 ## Model HandoverLogin
-- `reference`: string
-- `token`: string
-- `redirectTo`: string
-- `organizationKey`: string
 
 
 **Used by:**
@@ -3040,33 +2202,18 @@ Represents call to:
 [`User.createUserHandover`](#user-createuserhandover)
 
 ## Model UserMailAddress
-- `emailAddress`: string
 
 
 **Used by:**
 [`User.createUsersReset`](#user-createusersreset)
 
 ## Model User
-- `id`: string
-- `admin`: boolean
-- `color`: string
-- `country`: string
-- `created`: date
-- `disabled`: boolean
-- `external`: boolean
-- `firstName`: string
-- `groupIds`: array string
-- `lastName`: string
-- `ldapDn`: string
-- `emailAddress`: string
-- `licenses`: array [License](#model-license)
-- `organizationIds`: array string
-- `organizations`: array [Organization](#model-organization)
-- `password`: string
-- `phone`: string
-- `preferences`: any _api type Map_
-- `systemAdmin`: boolean
-- `systemUser`: boolean
+- `features`: any _api type FeatureCache_
+- `emailAddressLower`: string
+- `passwordHash`: string
+- `passwordReset`: any _api type PasswordReset_
+- `permissions`: array any _api type Permission_
+- `token`: string
 
 
 **Used by:**
@@ -3074,7 +2221,6 @@ Represents call to:
 [`User.updateUser`](#user-updateuser)
 
 ## Model LeaveRequest
-- `organizationId`: string
 
 
 **Used by:**

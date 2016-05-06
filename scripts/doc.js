@@ -3,7 +3,7 @@
 /* eslint no-console:0 */
 'use strict';
 
-const _ = require('lodash');
+const _ = require('../lib/lodashes');
 const Api = require('../');
 const util = require('util');
 const debug = require('debug')('signavio-api:doc');
@@ -17,7 +17,7 @@ if (process.argv.length > 3) {
   fnameOnly = process.argv[3];
 }
 
-let models = {};
+const models = {};
 
 console.log(util.format('%s API Reference (v%s)', pkge.version, Api.Task.version));
 console.log('===');
@@ -30,12 +30,12 @@ function printToc() {
   Object.keys(Api).forEach((name) => {
     if (nameOnly && name !== nameOnly) return;
 
-    let Intfc = Api[name];
+    const Intfc = Api[name];
 
     console.log('-', '[' + name + '](#' + name.toLowerCase() + ')');
 
     // var inst = new Intfc();
-    let protos = Object.keys(Intfc.prototype);
+    const protos = Object.keys(Intfc.prototype);
 
     protos.forEach((fname) => {
       if (fname !== 'log' && fname.indexOf('_') !== 0) {
@@ -48,7 +48,7 @@ function printToc() {
 function addModel(model, interfaceName, operationName) {
   if (!interfaceName) return;
 
-  let title = 'Model ' + model;
+  const title = 'Model ' + model;
 
   if (!models[title]) {
     models[title] = {
@@ -72,7 +72,7 @@ function getOriginalType(schemaDesc) {
     itemModel = schemaDesc.items[0].type === 'object' ? schemaDesc.items[0] : schemaDesc;
   }
 
-  let isModel = itemModel.tags && itemModel.tags.indexOf('model') > -1;
+  const isModel = itemModel.tags && itemModel.tags.indexOf('model') > -1;
   if (!isModel) return null;
 
   return _.get(itemModel, 'meta[0].originalType');
@@ -87,8 +87,8 @@ function formatUnknownType(itemType, apiItemType) {
 function getSchemaType(schemaDesc) {
   if (schemaDesc.flags && schemaDesc.flags.func) return 'function';
 
-  let originalType = getOriginalType(schemaDesc);
-  let type = schemaDesc.type;
+  const originalType = getOriginalType(schemaDesc);
+  const type = schemaDesc.type;
   let apiItemType, itemType;
 
   switch (schemaDesc.type) {
@@ -114,20 +114,20 @@ function getSchemaType(schemaDesc) {
 }
 
 function printSchema(schema, interfaceName, operation, padding, ignoreChildren) {
-  let descr = schema.describe ? schema.describe() : schema;
-  let children = descr.children;
+  const descr = schema.describe ? schema.describe() : schema;
+  const children = descr.children;
   if (!padding) padding = '';
 
   Object.keys(children).forEach((name) => {
-    let child = children[name];
-    let meta = child.meta && child.meta[0];
+    const child = children[name];
+    const meta = child.meta && child.meta[0];
 
     if (meta && meta.header) {
       return;
     }
 
-    let required = (child.flags && child.flags.presence === 'required') || (meta && meta.path);
-    let originalType = getOriginalType(child);
+    const required = (child.flags && child.flags.presence === 'required') || (meta && meta.path);
+    const originalType = getOriginalType(child);
 
     if (originalType) {
       addModel(originalType, interfaceName, operation);
@@ -157,19 +157,19 @@ function printFunctions() {
 
     console.log('\n#', name);
 
-    let Intfc = Api[name];
+    const Intfc = Api[name];
 
     console.log('**Constructor:**');
     console.log('- `options`');
     printSchema(Intfc.ctorSchema, null, null, '  ');
 
     // var inst = new Intfc();
-    let protos = Object.keys(Intfc.prototype);
+    const protos = Object.keys(Intfc.prototype);
 
     protos.forEach((fname) => {
       if (fnameOnly && fname !== fnameOnly) return;
 
-      let op = Intfc.prototype[fname];
+      const op = Intfc.prototype[fname];
 
       if (fname !== 'log' && fname.indexOf('_') !== 0) {
         console.log('\n##', name, fname);
@@ -192,8 +192,8 @@ function printFunctions() {
             console.log('\n**Callback:**');
             console.log('- `error`: Error or null');
 
-            let output = op.schemas.output.describe();
-            let originalType = output.label;
+            const output = op.schemas.output.describe();
+            const originalType = output.label;
 
             if (originalType) {
               addModel(originalType, name, fname);
@@ -213,10 +213,10 @@ function printModels() {
   console.log('\n# Models');
 
   Object.keys(models).forEach((title) => {
-    let model = models[title];
+    const model = models[title];
 
-    let Intfc = Api[model.interfaceName];
-    let modelSchema = Intfc.models[model.name];
+    const Intfc = Api[model.interfaceName];
+    const modelSchema = Intfc.models[model.name];
 
     console.log('\n##', title);
 
@@ -225,11 +225,11 @@ function printModels() {
       console.log('');
     }
 
-    let operations = Object.keys(model.operations);
+    const operations = Object.keys(model.operations);
     if (operations.length > 0) {
       console.log('\n**Used by:**');
       operations.forEach((opTitle) => {
-        let op = model.operations[opTitle];
+        const op = model.operations[opTitle];
         console.log(util.format('[`%s`](#%s-%s)', opTitle, op.interface.toLowerCase(), op.operation.toLowerCase()));
       });
     }

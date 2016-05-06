@@ -44,7 +44,7 @@ lab.experiment('User', () => {
         .post('/login/provider-key-2')
         .reply(200, 'OK');
 
-      let userNoToken = new Users();
+      const userNoToken = new Users();
       userNoToken.createLogin('provider-key-2', {
         token: users.options.token
       }, done);
@@ -73,7 +73,7 @@ lab.experiment('User', () => {
         .post('/users/login')
         .reply(200, 'OK');
 
-      let userNoToken = new Users();
+      const userNoToken = new Users();
       userNoToken.createUsersLogin({
         emailAddress: 'test@truntail.local',
         password: 'supers3cret'
@@ -104,7 +104,7 @@ lab.experiment('User', () => {
           token: 'OK'
         });
 
-      let userNoToken = new Users();
+      const userNoToken = new Users();
       userNoToken.login('test@truntail.local', 'supers3cret', done);
     });
 
@@ -115,7 +115,7 @@ lab.experiment('User', () => {
           token: 'OK'
         });
 
-      let userNoToken = new Users();
+      const userNoToken = new Users();
       userNoToken.login('test@truntail.local', 'supers3cret', {
         organizationKey: 'truntail'
       }, done);
@@ -128,7 +128,7 @@ lab.experiment('User', () => {
           token: 'OK'
         });
 
-      let userNoToken = new Users();
+      const userNoToken = new Users();
       userNoToken.login('test@truntail.local', 'supers3cret', {}, done);
     });
 
@@ -139,7 +139,7 @@ lab.experiment('User', () => {
           token: 'OK'
         });
 
-      let userNoToken = new Users();
+      const userNoToken = new Users();
       userNoToken.once('authorized', () => {
         done();
       });
@@ -155,7 +155,7 @@ lab.experiment('User', () => {
           message: 'Not found'
         });
 
-      let userNoToken = new Users();
+      const userNoToken = new Users();
       userNoToken.login('test@truntail.local', 'supers3cret', {
         organizationKey: 'truntail'
       }, (err, body, resp) => {

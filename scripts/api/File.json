@@ -3,11 +3,97 @@
   "swaggerVersion" : "1.2",
   "basePath" : "https://workflow.signavio.com/api/v1",
   "apis" : [ {
-    "path" : "/mail/incoming",
+    "path" : "/{organizationKey}/files",
     "operations" : [ {
       "method" : "POST",
-      "nickname" : "/mail/incoming",
-      "parameters" : [ ]
+      "nickname" : "/{organizationKey}/files",
+      "type" : "File",
+      "parameters" : [ {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/files/{fileId}",
+    "operations" : [ {
+      "method" : "DELETE",
+      "nickname" : "/{organizationKey}/files/{fileId}",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "fileId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    }, {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/files/{fileId}",
+      "type" : "File",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "fileId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/files/{fileId}/stream",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/files/{fileId}/stream",
+      "type" : "FileStream",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "fileId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/filesiframe",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/filesiframe",
+      "parameters" : [ {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      } ]
     } ]
   } ],
   "models" : {

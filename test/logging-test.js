@@ -34,7 +34,7 @@ lab.experiment('Logging', () => {
     lab.experiment('options log', () => {
       lab.test('outputs debug information to log function', (done) => {
         const Generator = require('../lib/generator');
-        let template = {
+        const template = {
           basePath: 'http://api.example.com',
           apis: [{
             path: '/{organizationKey}/processes',
@@ -52,14 +52,14 @@ lab.experiment('Logging', () => {
 
         nock(template.basePath).get('/test-org/processes').reply(200);
 
-        let msgs = [];
-        let Mock = Generator('Mock', template, {
+        const msgs = [];
+        const Mock = Generator('Mock', template, {
           log: function(msg) {
             msgs.push(msg);
           }
         });
 
-        let mock = new Mock();
+        const mock = new Mock();
 
         mock.getProcesses('test-org', () => {
           expect(msgs.length).to.be.above(1, 'No messages');
@@ -69,15 +69,15 @@ lab.experiment('Logging', () => {
     });
 
     lab.test('utilizes console.log if no log function is passed in options', (done) => {
-      let consoleLog = console.log;
+      const consoleLog = console.log;
 
-      let msgs = [];
+      const msgs = [];
       console.log = function(msg) {
         msgs.push(msg);
       };
 
       const Generator = require('../lib/generator');
-      let template = {
+      const template = {
         basePath: 'http://api.example.com',
         apis: [{
           path: '/{organizationKey}/processes',
@@ -94,8 +94,8 @@ lab.experiment('Logging', () => {
       };
 
       nock(template.basePath).get('/test-org/processes').reply(200);
-      let Mock = Generator('Mock', template);
-      let mock = new Mock();
+      const Mock = Generator('Mock', template);
+      const mock = new Mock();
 
       mock.getProcesses('test-org', () => {
         expect(msgs.length).to.be.above(1, 'No messages');

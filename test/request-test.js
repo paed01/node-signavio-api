@@ -13,7 +13,7 @@ nock.disableNetConnect();
 
 lab.experiment('Requests', () => {
   lab.test('GET that returns 400 with non-object returns error with 400', (done) => {
-    let template = {
+    const template = {
       basePath: 'http://testapi',
       apis: [{
         path: '/{organizationKey}/status',
@@ -37,8 +37,8 @@ lab.experiment('Requests', () => {
         'Content-Type': 'application/json'
       });
 
-    let Mock = Generator('Mock', template);
-    let mock = new Mock();
+    const Mock = Generator('Mock', template);
+    const mock = new Mock();
     mock.getStatus('test-org', (err, body, resp) => {
       expect(err).to.exist();
       expect(err.message).to.contain('Unauthorized');

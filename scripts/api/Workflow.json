@@ -3,32 +3,10 @@
   "swaggerVersion" : "1.2",
   "basePath" : "https://workflow.signavio.com/api/v1",
   "apis" : [ {
-    "path" : "/oauth_callback",
+    "path" : "/{organizationKey}/templates",
     "operations" : [ {
       "method" : "GET",
-      "nickname" : "/oauth_callback",
-      "parameters" : [ {
-        "paramType" : "query",
-        "name" : "state",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "code",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "error",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/services/{serviceKey}/accounts",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/services/{serviceKey}/accounts",
+      "nickname" : "/{organizationKey}/templates",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -41,256 +19,77 @@
         "dataType" : "string",
         "required" : true
       }, {
+        "paramType" : "query",
+        "name" : "category",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/workflows",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
         "paramType" : "path",
-        "name" : "serviceKey",
+        "name" : "organizationKey",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "query",
-        "name" : "excludeOwner",
+        "name" : "offset",
+        "dataType" : "integer",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "pagesize",
+        "dataType" : "integer",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "trigger",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "name",
         "dataType" : "string",
         "required" : true
       } ]
     }, {
       "method" : "POST",
-      "nickname" : "/services/{serviceKey}/accounts",
-      "type" : "Account",
+      "nickname" : "/{organizationKey}/workflows",
+      "type" : "EditorWorkflowDetail",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
-        "description" : "The authentication token must belong to an admin of the organization admin. The token can be obtained from /users/login.",
+        "description" : "The authentication token can be obtained from /users/login.",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "path",
         "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "body",
-        "name" : "account",
-        "dataType" : "Account",
+        "name" : "newWorkflow",
+        "dataType" : "NewWorkflow",
         "required" : true
       } ]
     } ]
   }, {
-    "path" : "/services/{serviceKey}/accounts/{accountId}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/services/{serviceKey}/accounts/{accountId}",
-      "type" : "Account",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "excludeOwner",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    }, {
-      "method" : "PUT",
-      "nickname" : "/services/{serviceKey}/accounts/{accountId}",
-      "type" : "Account",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "body",
-        "name" : "patchUpdate",
-        "dataType" : "PatchUpdate",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/services/{serviceKey}/accounts/{accountId}/options/{optionsKey}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/services/{serviceKey}/accounts/{accountId}/options/{optionsKey}",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "optionsKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "excludeOwner",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/services/{serviceKey}/accounts/{accountId}/references",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/services/{serviceKey}/accounts/{accountId}/references",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "q",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "parent",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "pathTo",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "excludeOwner",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/services/{serviceKey}/options/{optionsKey}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/services/{serviceKey}/options/{optionsKey}",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "optionsKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "excludeOwner",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/services",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/services/oauth/start",
+    "path" : "/{organizationKey}/workflows/import/bpmn",
     "operations" : [ {
       "method" : "POST",
-      "nickname" : "/{organizationKey}/services/oauth/start",
-      "type" : "OauthStartResponse",
+      "nickname" : "/{organizationKey}/workflows/import/bpmn",
+      "type" : "AbstractWorkflow",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -304,16 +103,16 @@
         "required" : true
       }, {
         "paramType" : "body",
-        "name" : "oauthStartRequest",
-        "dataType" : "OauthStartRequest",
+        "dataType" : "string",
         "required" : true
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/accounts",
+    "path" : "/{organizationKey}/workflows/import/bpmn/{fileId}",
     "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts",
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/workflows/import/bpmn/{fileId}",
+      "type" : "AbstractWorkflow",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -327,23 +126,21 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "excludeOwner",
+        "name" : "fileId",
         "dataType" : "string",
         "required" : true
       } ]
-    }, {
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/import/json",
+    "operations" : [ {
       "method" : "POST",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts",
-      "type" : "Account",
+      "nickname" : "/{organizationKey}/workflows/import/json",
+      "type" : "EditorWorkflow",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
-        "description" : "The authentication token must belong to an admin of the organization admin. The token can be obtained from /users/login.",
+        "description" : "The authentication token can be obtained from /users/login.",
         "dataType" : "string",
         "required" : true
       }, {
@@ -352,22 +149,17 @@
         "dataType" : "string",
         "required" : true
       }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
         "paramType" : "body",
-        "name" : "account",
-        "dataType" : "Account",
+        "name" : "editorWorkflow",
+        "dataType" : "EditorWorkflow",
         "required" : true
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}",
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}",
     "operations" : [ {
       "method" : "DELETE",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -381,50 +173,40 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    }, {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}",
-      "type" : "Account",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
+        "name" : "editorWorkflowId",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "query",
-        "name" : "excludeOwner",
+        "name" : "cascade",
+        "dataType" : "boolean",
+        "required" : true
+      } ]
+    }, {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}",
+      "type" : "EditorWorkflowDetail",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
         "dataType" : "string",
         "required" : true
       } ]
     }, {
       "method" : "PUT",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}",
-      "type" : "Account",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}",
+      "type" : "EditorWorkflowDetail",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -438,189 +220,22 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
+        "name" : "editorWorkflowId",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "body",
-        "name" : "patchUpdate",
-        "dataType" : "PatchUpdate",
+        "name" : "editorWorkflow",
+        "dataType" : "EditorWorkflow",
         "required" : true
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/inputs/resource/{resourceId}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/inputs/resource/{resourceId}",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "resourceId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "optionalId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/inputs/resource/{resourceId}/{optionalId}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/inputs/resource/{resourceId}/{optionalId}",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "resourceId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "optionalId",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/options/{optionsKey}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/options/{optionsKey}",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "optionsKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "excludeOwner",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/references",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/accounts/{accountId}/references",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "q",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "parent",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "pathTo",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "query",
-        "name" : "excludeOwner",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/actionInstances/lock",
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/activities/{activityId}/test",
     "operations" : [ {
       "method" : "POST",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/actionInstances/lock",
-      "type" : "ActionInstance",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/activities/{activityId}/test",
+      "type" : "ScriptResult",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -634,22 +249,22 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "serviceKey",
+        "name" : "editorWorkflowId",
         "dataType" : "string",
         "required" : true
       }, {
-        "paramType" : "body",
-        "name" : "actionInstance",
-        "dataType" : "ActionInstance",
+        "paramType" : "path",
+        "name" : "activityId",
+        "dataType" : "string",
         "required" : true
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/actionInstances/{actionInstanceId}/end",
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/copy",
     "operations" : [ {
       "method" : "POST",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/actionInstances/{actionInstanceId}/end",
-      "type" : "EmptyObject",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/copy",
+      "type" : "EditorWorkflowDetail",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -663,27 +278,162 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "serviceKey",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/export/bpmn/",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/export/bpmn/",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "actionInstanceId",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/export/json",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/export/json",
+      "type" : "EditorWorkflow",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/lock",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/lock",
+      "type" : "EditorWorkflow",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/startForm",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/startForm",
+      "type" : "FormInstance",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/unlock",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/unlock",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/update/bpmn",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/update/bpmn",
+      "type" : "EditorWorkflow",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "body",
-        "name" : "actionInstanceEnd",
-        "dataType" : "ActionInstanceEnd",
+        "dataType" : "string",
         "required" : true
       } ]
     } ]
   }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/icon",
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/versions",
     "operations" : [ {
       "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/icon",
-      "type" : "FileStream",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/versions",
       "parameters" : [ {
         "paramType" : "header",
         "name" : "Authorization",
@@ -697,45 +447,101 @@
         "required" : true
       }, {
         "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      } ]
-    } ]
-  }, {
-    "path" : "/{organizationKey}/services/{serviceKey}/options/{optionsKey}",
-    "operations" : [ {
-      "method" : "GET",
-      "nickname" : "/{organizationKey}/services/{serviceKey}/options/{optionsKey}",
-      "parameters" : [ {
-        "paramType" : "header",
-        "name" : "Authorization",
-        "description" : "The authentication token can be obtained from /users/login.",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "organizationKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "serviceKey",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "accountId",
-        "dataType" : "string",
-        "required" : true
-      }, {
-        "paramType" : "path",
-        "name" : "optionsKey",
+        "name" : "editorWorkflowId",
         "dataType" : "string",
         "required" : true
       }, {
         "paramType" : "query",
-        "name" : "excludeOwner",
+        "name" : "offset",
+        "dataType" : "integer",
+        "required" : true
+      }, {
+        "paramType" : "query",
+        "name" : "pagesize",
+        "dataType" : "integer",
+        "required" : true
+      } ]
+    }, {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/versions",
+      "type" : "ExecutableWorkflow",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "body",
+        "name" : "versionRequest",
+        "dataType" : "VersionRequest",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{editorWorkflowId}/versions/{versionId}/restore",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/workflows/{editorWorkflowId}/versions/{versionId}/restore",
+      "type" : "EditorWorkflowDetail",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "editorWorkflowId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "versionId",
+        "dataType" : "string",
+        "required" : true
+      } ]
+    } ]
+  }, {
+    "path" : "/{organizationKey}/workflows/{workflowId}/versions/{versionId}/publish",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "/{organizationKey}/workflows/{workflowId}/versions/{versionId}/publish",
+      "type" : "ExecutableWorkflow",
+      "parameters" : [ {
+        "paramType" : "header",
+        "name" : "Authorization",
+        "description" : "The authentication token can be obtained from /users/login.",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "organizationKey",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "workflowId",
+        "dataType" : "string",
+        "required" : true
+      }, {
+        "paramType" : "path",
+        "name" : "versionId",
         "dataType" : "string",
         "required" : true
       } ]

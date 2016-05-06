@@ -43,7 +43,7 @@ lab.experiment('Tasks', () => {
       });
     });
     lab.test('returns error in callback if authorization token is missing', (done) => {
-      let newTasks = new Tasks();
+      const newTasks = new Tasks();
       newTasks.getTask('test-org', '1', (err) => {
         expect(err).to.exist();
         done();
@@ -86,7 +86,7 @@ lab.experiment('Tasks', () => {
 
   lab.experiment('#updateTaskFormField', () => {
     lab.test('FormInstanceField schema complete', (done) => {
-      let input = {
+      const input = {
         id: '23',
         value: 'new name',
         type: {}
@@ -96,7 +96,7 @@ lab.experiment('Tasks', () => {
     });
 
     lab.test('FormInstanceField schema value only', (done) => {
-      let input = {
+      const input = {
         value: 'new name'
       };
 
@@ -126,7 +126,7 @@ lab.experiment('Tasks', () => {
   });
 
   lab.experiment('#getFormFieldByName', () => {
-    let taskData = {
+    const taskData = {
       form: {
         fields: [{
           id: '23',
@@ -138,27 +138,27 @@ lab.experiment('Tasks', () => {
     };
 
     lab.test('when argument is TaskXL it returns field', (done) => {
-      let f = tasks.getFormFieldByName(taskData, 'Name');
+      const f = tasks.getFormFieldByName(taskData, 'Name');
       expect(f).to.exist();
       expect(f.id).to.equal('23');
       done();
     });
 
     lab.test('returns null if field name not found', (done) => {
-      let f = tasks.getFormFieldByName(taskData, 'no');
+      const f = tasks.getFormFieldByName(taskData, 'no');
       expect(f).to.equal(null);
       done();
     });
 
     lab.test('returns null if task.form is undefined', (done) => {
-      let f = tasks.getFormFieldByName({}, 'no');
+      const f = tasks.getFormFieldByName({}, 'no');
       expect(f).to.equal(null);
       done();
     });
   });
 
   lab.experiment('override', () => {
-    let taskTemplate = {
+    const taskTemplate = {
       apis: [{
         path: '/{organizationKey}/tasks/{taskId}/complete',
         operations: [{
@@ -184,7 +184,7 @@ lab.experiment('Tasks', () => {
     };
 
     lab.test('/{organizationKey}/tasks/{taskId}/complete is named completeTask', (done) => {
-      let Task = Generator('Task', taskTemplate);
+      const Task = Generator('Task', taskTemplate);
       expect(Task.prototype.completeTask).to.exist();
       done();
     });

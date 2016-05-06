@@ -10,7 +10,7 @@ const Workflow = require('../.').Workflow;
 const Tasks = require('../.').Task;
 
 lab.experiment('Authorization', () => {
-  let scope = nock(Workflow.apiDoc.basePath);
+  const scope = nock(Workflow.apiDoc.basePath);
 
   lab.before((done) => {
     nock.disableNetConnect();
@@ -24,7 +24,7 @@ lab.experiment('Authorization', () => {
   lab.experiment('Expired token', () => {
 
     lab.test('Returns 401 in response', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token'
       });
 
@@ -42,7 +42,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Issues new token if username and password are supplied', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -73,7 +73,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Saves new token to instance', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -106,7 +106,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Responds with 401 error if wrong username and password are supplied', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -132,7 +132,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Repeated unauthorized calls only calls login once', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -167,7 +167,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Repeated unauthorized calls with different modules only calls login once', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -175,7 +175,7 @@ lab.experiment('Authorization', () => {
         }
       });
 
-      let tasks = new Tasks({
+      const tasks = new Tasks({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -223,7 +223,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Repeated unauthorized calls with different users only calls login once per user', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -231,7 +231,7 @@ lab.experiment('Authorization', () => {
         }
       });
 
-      let tasks = new Tasks({
+      const tasks = new Tasks({
         authorization: 'token',
         credentials: {
           username: 'signavio-admin',
@@ -259,7 +259,7 @@ lab.experiment('Authorization', () => {
             })]);
           }
 
-          let respBody = {
+          const respBody = {
             token: requestBody.emailAddress === 'signavio-user' ? 'process-new-token' : 'tasks-new-token'
           };
 
@@ -287,7 +287,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('New login emits authorized event once per user', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -295,7 +295,7 @@ lab.experiment('Authorization', () => {
         }
       });
 
-      let tasks = new Tasks({
+      const tasks = new Tasks({
         authorization: 'token',
         credentials: {
           username: 'signavio-admin',
@@ -323,7 +323,7 @@ lab.experiment('Authorization', () => {
             })]);
           }
 
-          let respBody = {
+          const respBody = {
             token: requestBody.emailAddress === 'signavio-user' ? 'process-event-token' : 'tasks-event-token'
           };
 
@@ -338,8 +338,8 @@ lab.experiment('Authorization', () => {
           id: 'unique-id'
         });
 
-      let tokens = [];
-      let pushToken = (user) => {
+      const tokens = [];
+      const pushToken = (user) => {
         tokens.push(user);
       };
       instance.on('authorized', pushToken);
@@ -365,7 +365,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Login error returns error in callback', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -390,7 +390,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('return error in callback if body is missing from login call', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -415,7 +415,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('return error in callback if body.token is missing from login call', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -439,7 +439,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('sub-sequent calls use the same token', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         authorization: 'token',
         credentials: {
           username: 'signavio-user',
@@ -478,7 +478,7 @@ lab.experiment('Authorization', () => {
   lab.experiment('No default authorization token', () => {
 
     lab.test('First call is login', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'signavio-user',
           password: 'signavio-passw0rd'
@@ -504,7 +504,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('instance without credentials returns error', (done) => {
-      let instance = new Workflow();
+      const instance = new Workflow();
       instance.getWorkflows('test-org', (err) => {
         expect(err).to.be.instanceof(Error);
         expect(err.message).to.equal('Missing credentials');
@@ -522,7 +522,7 @@ lab.experiment('Authorization', () => {
         .matchHeader('authorization', 'custom-token')
         .reply(200, []);
 
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'signavio-user',
           password: 'signavio-passw0rd'
@@ -546,7 +546,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Custom login return without body returns error', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'signavio-user',
           password: 'signavio-passw0rd'
@@ -569,7 +569,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Custom login return without body.token returns error', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'signavio-user',
           password: 'signavio-passw0rd'
@@ -592,7 +592,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Custom login with statusCode 401 returns error', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'signavio-user',
           password: 'signavio-passw0rd'
@@ -615,7 +615,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Custom login error returns error', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'signavio-user',
           password: 'signavio-passw0rd'
@@ -635,7 +635,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('Custom login inherited from EventEmitter emits authorized', (done) => {
-      let users = new EventEmitter();
+      const users = new EventEmitter();
       users.login = (u, p, callback) => {
         return callback(null, {
           token: 'emit-token'
@@ -648,7 +648,7 @@ lab.experiment('Authorization', () => {
         .get('/custom-login-20-org/workflows')
         .reply(200, []);
 
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'signavio-user',
           password: 'signavio-passw0rd'
@@ -670,7 +670,7 @@ lab.experiment('Authorization', () => {
   lab.experiment('option #onUnauthorized', () => {
 
     lab.test('makes call with callback token', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         onUnauthorized: (opArgs, callback) => {
           return callback(null, 'token');
         }
@@ -689,7 +689,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('has access to options.credentials', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         credentials: {
           username: 'me@example.com'
         },
@@ -711,13 +711,13 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('returns error in callback', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         onUnauthorized: (opArgs, callback) => {
           return callback(new Error('Custom error'));
         }
       });
 
-      let ids = ['onunauthorized', 'err', 'token'];
+      const ids = ['onunauthorized', 'err', 'token'];
 
       instance.getWorkflows('test-org', ids, (err) => {
         expect(err).to.be.instanceof(Error);
@@ -727,7 +727,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('returns error in callback if no token is returned', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         onUnauthorized: (opArgs, callback) => {
           return callback();
         }
@@ -741,13 +741,13 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('returns error in callback if token not a string', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         onUnauthorized: (opArgs, callback) => {
           return callback(null, {});
         }
       });
 
-      let ids = ['onunauthorized', 'object', 'token'];
+      const ids = ['onunauthorized', 'object', 'token'];
 
       instance.getWorkflows('test-org', ids, (err) => {
         expect(err).to.be.instanceof(Error);
@@ -757,7 +757,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('returns 401 if token has expired', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         onUnauthorized: (opArgs, callback) => {
           return callback(null, 'token');
         }
@@ -778,7 +778,7 @@ lab.experiment('Authorization', () => {
     });
 
     lab.test('requests with token specified in callback', (done) => {
-      let instance = new Workflow({
+      const instance = new Workflow({
         onUnauthorized: (opArgs, next) => {
           if (opArgs.organizationKey === 'test-org') return next(null, 'test-org-token');
           return next(null, 'token');
