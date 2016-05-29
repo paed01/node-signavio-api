@@ -765,7 +765,7 @@ lab.experiment('Generator', () => {
 
         mock.getTest('test-org', (err, body, resp) => {
           if (err) return done(err);
-          expect(body).to.deep.equal({
+          expect(body).to.part.equal({
             test: true
           });
           scope.done();

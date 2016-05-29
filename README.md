@@ -1,5 +1,5 @@
 node signavio workflow api
-=================
+==========================
 
 [![Build Status](https://secure.travis-ci.org/paed01/node-signavio-api.png)](http://travis-ci.org/paed01/node-signavio-api)[![Coverage Status](https://coveralls.io/repos/paed01/node-signavio-api/badge.svg?branch=master)](https://coveralls.io/r/paed01/node-signavio-api?branch=master)
 
@@ -9,6 +9,8 @@ Unofficial node [signavio][1] workflow [api][2] wrapper.
 - [Interface](#interface)
   - [Constructor](#constructor)
   - [Events](#events)
+  - [Cases](#cases)
+    - [Initiate new case with form trigger](#initiate-new-case-with-form-trigger)
   - [Tasks](#tasks)
     - [`#getFormFieldByName`](#getformfieldbyname)
   - [Users](#users)
@@ -23,6 +25,102 @@ Unofficial node [signavio][1] workflow [api][2] wrapper.
 # Introduction
 
 The module is auto-generated from the signavio documentation [json-endpoint][3].
+
+# Usage
+
+Some examples of haow to use the API-wrapper.
+
+## Initiate new case with form trigger
+
+First off you need to get the start form to trigger, then initiate a new case with the form fields:
+
+```javascript
+const SignavioApi = require('signavio-api');
+const options = {
+  credentials: {
+    username: 'me@example.com',
+    password: 'sup3rs3cr3t'
+  }
+};
+
+const workflows = new SignavioApi.Workflow(options);
+const cases = new SignavioApi.Case(options);
+
+const organisationKey = '<organisationKey>';
+const workflowId = '<workflow-id>';
+
+// Get workflow start form
+workflows.getProcessStartForm(organisationKey, workflowId, (err, startForm, resp) => {
+  console.log(err, startForm, resp.statusCode);
+
+  // Fill the form with values - example
+  startForm.fields[0].value = 'start-value-1';
+  startForm.fields[1].value = 'start-value-2';
+
+  const startProcessPayload = {
+    triggerInstance: {
+      sourceWorkflowId: workflowId,
+      data: {
+        formInstance: {
+          value: startForm
+        }
+      }
+    }
+  };
+
+  // Initiate new process
+  cases.createCases(startProcessPayload, (err, newCase, resp) => {
+    console.log(err, newCase, resp.statusCode);
+  });
+
+});
+```
+
+## Complete next task
+
+Get pending tasks from the previously initiated case. Set form field values, if any. Call `completeTask`.
+
+```javascript
+const SignavioApi = require('signavio-api');
+const options = {
+  credentials: {
+    username: 'me@example.com',
+    password: 'sup3rs3cr3t'
+  }
+};
+
+const cases = new SignavioApi.Case(options);
+const tasks = new SignavioApi.Task(options);
+
+const organisationKey = '<organisationKey>';
+// Case Id from when initiating new case
+const caseId = '<case-id>';
+
+// Get incomplete case tasks
+cases.getCaseTasks(organizationKey, caseId, false, (err, pendingTasks, resp) => {
+  if (err) return console.log(err);
+
+  const nextTasks = pendingTasks.filter((t) => {
+    return !t.completed;
+  });
+  if (!nextTasks.length) {
+    console.log(`case ${caseId} has no incomplete tasks`);
+    return;
+  }
+
+  const nextTask = nextTasks[0];
+
+  if (nextTask.hasForm) {
+    // Set task field values
+    const field1 = tasks.getFormFieldByName(nextTask, 'my-field-name');
+    field1.value = 'OK';
+  }
+
+  tasks.completeTask(organizationKey, nextTask.id, nextTask.form.fields || [], (err, result, resp) => {
+    console.log(err, result, resp);
+  });
+});
+```
 
 # Interface
 
