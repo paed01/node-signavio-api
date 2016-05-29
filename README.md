@@ -96,7 +96,7 @@ const organisationKey = '<organisationKey>';
 // Case Id from when initiating new case
 const caseId = '<case-id>';
 
-// Get incomplete case tasks
+// Get pending tasks
 cases.getCaseTasks(organizationKey, caseId, false, (err, pendingTasks, resp) => {
   if (err) return console.log(err);
 
