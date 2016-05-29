@@ -28,7 +28,7 @@ The module is auto-generated from the signavio documentation [json-endpoint][3].
 
 # Usage
 
-Some examples of haow to use the API-wrapper.
+Some examples of how to use the API-wrapper.
 
 ## Initiate new case with form trigger
 
