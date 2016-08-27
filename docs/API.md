@@ -1,4 +1,4 @@
-1.0.0 API Reference (v1)
+1.0.2 API Reference (v1)
 ===
 Auto-generated Api documentation.
 Base path: https://workflow.signavio.com/api/v1
@@ -52,18 +52,24 @@ Base path: https://workflow.signavio.com/api/v1
   - [`getWorkflows`](#workflow-getworkflows)
   - [`createWorkflows`](#workflow-createworkflows)
   - [`createWorkflowsImportBpmn`](#workflow-createworkflowsimportbpmn)
+  - [`createWorkflowsImportBpmndmn`](#workflow-createworkflowsimportbpmndmn)
   - [`createWorkflowsImportJson`](#workflow-createworkflowsimportjson)
   - [`deleteWorkflow`](#workflow-deleteworkflow)
   - [`getWorkflow`](#workflow-getworkflow)
   - [`updateWorkflow`](#workflow-updateworkflow)
+  - [`getWorkflowActionsInputs`](#workflow-getworkflowactionsinputs)
+  - [`getWorkflowActionsOutputs`](#workflow-getworkflowactionsoutputs)
   - [`createWorkflowActivityTest`](#workflow-createworkflowactivitytest)
   - [`createWorkflowCopy`](#workflow-createworkflowcopy)
   - [`getWorkflowExportBpmn`](#workflow-getworkflowexportbpmn)
+  - [`getWorkflowExportBpmndmn`](#workflow-getworkflowexportbpmndmn)
   - [`getWorkflowExportJson`](#workflow-getworkflowexportjson)
   - [`createWorkflowLock`](#workflow-createworkflowlock)
   - [`getWorkflowStartForm`](#workflow-getworkflowstartform)
+  - [`getWorkflowStartInfo`](#workflow-getworkflowstartinfo)
   - [`createWorkflowUnlock`](#workflow-createworkflowunlock)
   - [`updateWorkflowUpdateBpmn`](#workflow-updateworkflowupdatebpmn)
+  - [`updateWorkflowUpdateBpmndmn`](#workflow-updateworkflowupdatebpmndmn)
   - [`getWorkflowVersions`](#workflow-getworkflowversions)
   - [`createWorkflowVersions`](#workflow-createworkflowversions)
   - [`createWorkflowVersionRestore`](#workflow-createworkflowversionrestore)
@@ -84,6 +90,12 @@ Base path: https://workflow.signavio.com/api/v1
   - [`getInfoLicenses`](#organization-getinfolicenses)
   - [`deleteInvitations`](#organization-deleteinvitations)
   - [`createInvitationsResend`](#organization-createinvitationsresend)
+  - [`deleteLdap`](#organization-deleteldap)
+  - [`getLdap`](#organization-getldap)
+  - [`createLdap`](#organization-createldap)
+  - [`updateLdap`](#organization-updateldap)
+  - [`createLdapSynchronise`](#organization-createldapsynchronise)
+  - [`createLdapValidate`](#organization-createldapvalidate)
   - [`createLicenseProfiles`](#organization-createlicenseprofiles)
   - [`getLicenses`](#organization-getlicenses)
   - [`createLicenses`](#organization-createlicenses)
@@ -283,6 +295,11 @@ Represents call to:
 - `workflowDeleted`: boolean
 - `callback`: **required** function - function(err, body, resp)
 
+
+**Callback:**
+- `error`: Error or null
+- `body`: [CaseSummaries](#model-casesummaries)
+- `resp`: Http response
 
 ## Case createCases
 Represents call to:
@@ -754,6 +771,23 @@ Represents call to:
 - `body`: [AbstractWorkflow](#model-abstractworkflow)
 - `resp`: Http response
 
+## Workflow createWorkflowsImportBpmndmn
+Represents call to:
+`POST /{organizationKey}/workflows/import/bpmndmn`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `dmnBpmnWrapper`: **required** object [DmnBpmnWrapper](#model-dmnbpmnwrapper)
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [AbstractWorkflow](#model-abstractworkflow)
+- `resp`: Http response
+
 ## Workflow createWorkflowsImportJson
 Represents call to:
 `POST /{organizationKey}/workflows/import/json`
@@ -819,6 +853,32 @@ Represents call to:
 - `body`: [EditorWorkflowDetail](#model-editorworkflowdetail)
 - `resp`: Http response
 
+## Workflow getWorkflowActionsInputs
+Represents call to:
+`GET /{organizationKey}/workflows/{editorWorkflowId}/actions/{activityId}/inputs`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `editorWorkflowId`: **required** string
+- `activityId`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+## Workflow getWorkflowActionsOutputs
+Represents call to:
+`GET /{organizationKey}/workflows/{editorWorkflowId}/actions/{activityId}/outputs`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `editorWorkflowId`: **required** string
+- `activityId`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
 ## Workflow createWorkflowActivityTest
 Represents call to:
 `POST /{organizationKey}/workflows/{editorWorkflowId}/activities/{activityId}/test`
@@ -865,6 +925,23 @@ Represents call to:
 - `editorWorkflowId`: **required** string
 - `callback`: **required** function - function(err, body, resp)
 
+
+## Workflow getWorkflowExportBpmndmn
+Represents call to:
+`GET /{organizationKey}/workflows/{editorWorkflowId}/export/bpmndmn/`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `editorWorkflowId`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [DmnBpmnWrapper](#model-dmnbpmnwrapper)
+- `resp`: Http response
 
 ## Workflow getWorkflowExportJson
 Represents call to:
@@ -917,6 +994,23 @@ Represents call to:
 - `body`: [FormInstance](#model-forminstance)
 - `resp`: Http response
 
+## Workflow getWorkflowStartInfo
+Represents call to:
+`GET /{organizationKey}/workflows/{editorWorkflowId}/startInfo`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `editorWorkflowId`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [StartInfo](#model-startinfo)
+- `resp`: Http response
+
 ## Workflow createWorkflowUnlock
 Represents call to:
 `POST /{organizationKey}/workflows/{editorWorkflowId}/unlock`
@@ -939,6 +1033,24 @@ Represents call to:
 - `organizationKey`: **required** string
 - `editorWorkflowId`: **required** string
 - `body`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [EditorWorkflow](#model-editorworkflow)
+- `resp`: Http response
+
+## Workflow updateWorkflowUpdateBpmndmn
+Represents call to:
+`PUT /{organizationKey}/workflows/{editorWorkflowId}/update/bpmndmn`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `editorWorkflowId`: **required** string
+- `dmnBpmnWrapper`: **required** object [DmnBpmnWrapper](#model-dmnbpmnwrapper)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1209,6 +1321,99 @@ Represents call to:
 - `inviteeMailAddress`: **required** string
 - `callback`: **required** function - function(err, body, resp)
 
+
+## Organization deleteLdap
+Represents call to:
+`DELETE /{organizationKey}/ldap`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+## Organization getLdap
+Represents call to:
+`GET /{organizationKey}/ldap`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [LdapConfiguration](#model-ldapconfiguration)
+- `resp`: Http response
+
+## Organization createLdap
+Represents call to:
+`POST /{organizationKey}/ldap`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `ldapConfiguration`: **required** object [LdapConfiguration](#model-ldapconfiguration)
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [LdapConfiguration](#model-ldapconfiguration)
+- `resp`: Http response
+
+## Organization updateLdap
+Represents call to:
+`PUT /{organizationKey}/ldap`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `patchUpdate`: **required** object [PatchUpdate](#model-patchupdate)
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [LdapConfiguration](#model-ldapconfiguration)
+- `resp`: Http response
+
+## Organization createLdapSynchronise
+Represents call to:
+`POST /{organizationKey}/ldap/synchronise`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [LdapSynchronisationResult](#model-ldapsynchronisationresult)
+- `resp`: Http response
+
+## Organization createLdapValidate
+Represents call to:
+`POST /{organizationKey}/ldap/validate`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [LdapValidationResult](#model-ldapvalidationresult)
+- `resp`: Http response
 
 ## Organization createLicenseProfiles
 Represents call to:
@@ -1931,6 +2136,12 @@ Represents call to:
 [`User.getRegistrationPicture`](#user-getregistrationpicture)
 [`User.getUserPicture`](#user-getuserpicture)
 
+## Model CaseSummaries
+
+
+**Used by:**
+[`Case.getCases`](#case-getcases)
+
 ## Model NewCase
 - `nameLower`: string
 - `hasDueDate`: boolean
@@ -1960,6 +2171,7 @@ Represents call to:
 [`Task.updateTask`](#task-updatetask)
 [`Organization.update`](#organization-update)
 [`Organization.updateGroups`](#organization-updategroups)
+[`Organization.updateLdap`](#organization-updateldap)
 [`Organization.updateLicense`](#organization-updatelicense)
 [`Service.updateServiceAccount`](#service-updateserviceaccount)
 [`User.updateUser`](#user-updateuser)
@@ -2019,6 +2231,15 @@ Represents call to:
 
 **Used by:**
 [`Workflow.createWorkflowsImportBpmn`](#workflow-createworkflowsimportbpmn)
+[`Workflow.createWorkflowsImportBpmndmn`](#workflow-createworkflowsimportbpmndmn)
+
+## Model DmnBpmnWrapper
+
+
+**Used by:**
+[`Workflow.createWorkflowsImportBpmndmn`](#workflow-createworkflowsimportbpmndmn)
+[`Workflow.getWorkflowExportBpmndmn`](#workflow-getworkflowexportbpmndmn)
+[`Workflow.updateWorkflowUpdateBpmndmn`](#workflow-updateworkflowupdatebpmndmn)
 
 ## Model EditorWorkflow
 - `nameLower`: string
@@ -2030,6 +2251,7 @@ Represents call to:
 [`Workflow.getWorkflowExportJson`](#workflow-getworkflowexportjson)
 [`Workflow.createWorkflowLock`](#workflow-createworkflowlock)
 [`Workflow.updateWorkflowUpdateBpmn`](#workflow-updateworkflowupdatebpmn)
+[`Workflow.updateWorkflowUpdateBpmndmn`](#workflow-updateworkflowupdatebpmndmn)
 
 ## Model ScriptResult
 
@@ -2042,6 +2264,12 @@ Represents call to:
 
 **Used by:**
 [`Workflow.getWorkflowStartForm`](#workflow-getworkflowstartform)
+
+## Model StartInfo
+
+
+**Used by:**
+[`Workflow.getWorkflowStartInfo`](#workflow-getworkflowstartinfo)
 
 ## Model VersionRequest
 
@@ -2080,6 +2308,26 @@ Represents call to:
 [`Organization.getGroups`](#organization-getgroups)
 [`Organization.createGroups`](#organization-creategroups)
 [`Organization.updateGroups`](#organization-updategroups)
+
+## Model LdapConfiguration
+
+
+**Used by:**
+[`Organization.getLdap`](#organization-getldap)
+[`Organization.createLdap`](#organization-createldap)
+[`Organization.updateLdap`](#organization-updateldap)
+
+## Model LdapSynchronisationResult
+
+
+**Used by:**
+[`Organization.createLdapSynchronise`](#organization-createldapsynchronise)
+
+## Model LdapValidationResult
+
+
+**Used by:**
+[`Organization.createLdapValidate`](#organization-createldapvalidate)
 
 ## Model NewAssignmentRequest
 
