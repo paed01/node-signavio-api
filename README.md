@@ -6,11 +6,12 @@ node signavio workflow api
 Unofficial node [signavio][1] workflow [api][2] wrapper.
 
 **Table of contents**
+- [Usage](#usage)
+  - [Initiate new case with form trigger](#initiate-new-case-with-form-trigger)
+  - [Complete next task](#complete-next-task)
 - [Interface](#interface)
   - [Constructor](#constructor)
   - [Events](#events)
-  - [Cases](#cases)
-    - [Initiate new case with form trigger](#initiate-new-case-with-form-trigger)
   - [Tasks](#tasks)
     - [`#getFormFieldByName`](#getformfieldbyname)
   - [Users](#users)
