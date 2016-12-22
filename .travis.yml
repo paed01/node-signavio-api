@@ -3,5 +3,6 @@ node_js:
 - "4"
 - "5"
 - "6"
+- "7"
 after_script:
 - cat coverage.lcov | ./node_modules/coveralls/bin/coveralls.js

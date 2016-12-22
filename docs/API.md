@@ -1,4 +1,4 @@
-1.0.2 API Reference (v1)
+1.1.0 API Reference (v1)
 ===
 Auto-generated Api documentation.
 Base path: https://workflow.signavio.com/api/v1
@@ -54,6 +54,7 @@ Base path: https://workflow.signavio.com/api/v1
   - [`createWorkflowsImportBpmn`](#workflow-createworkflowsimportbpmn)
   - [`createWorkflowsImportBpmndmn`](#workflow-createworkflowsimportbpmndmn)
   - [`createWorkflowsImportJson`](#workflow-createworkflowsimportjson)
+  - [`getWorkflowsScopeReports`](#workflow-getworkflowsscopereports)
   - [`deleteWorkflow`](#workflow-deleteworkflow)
   - [`getWorkflow`](#workflow-getworkflow)
   - [`updateWorkflow`](#workflow-updateworkflow)
@@ -87,6 +88,9 @@ Base path: https://workflow.signavio.com/api/v1
   - [`createGroups`](#organization-creategroups)
   - [`deleteGroups`](#organization-deletegroups)
   - [`updateGroups`](#organization-updategroups)
+  - [`getGroupsMembers`](#organization-getgroupsmembers)
+  - [`createGroupsMembers`](#organization-creategroupsmembers)
+  - [`deleteGroupsMembers`](#organization-deletegroupsmembers)
   - [`getInfoLicenses`](#organization-getinfolicenses)
   - [`deleteInvitations`](#organization-deleteinvitations)
   - [`createInvitationsResend`](#organization-createinvitationsresend)
@@ -393,6 +397,7 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `caseId`: **required** string
+- `caseCancellation`: **required** object [CaseCancellation](#model-casecancellation)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -768,7 +773,7 @@ Represents call to:
 
 **Callback:**
 - `error`: Error or null
-- `body`: [AbstractWorkflow](#model-abstractworkflow)
+- `body`: [ImportResponse](#model-importresponse)
 - `resp`: Http response
 
 ## Workflow createWorkflowsImportBpmndmn
@@ -779,7 +784,7 @@ Represents call to:
 
 **Arguments:**
 - `organizationKey`: **required** string
-- `dmnBpmnWrapper`: **required** object [DmnBpmnWrapper](#model-dmnbpmnwrapper)
+- `dmnBpmnImportWrapper`: **required** object [DmnBpmnImportWrapper](#model-dmnbpmnimportwrapper)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -804,6 +809,21 @@ Represents call to:
 - `error`: Error or null
 - `body`: [EditorWorkflow](#model-editorworkflow)
 - `resp`: Http response
+
+## Workflow getWorkflowsScopeReports
+Represents call to:
+`GET /{organizationKey}/workflows/scope/reports`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `offset`: number
+- `pagesize`: number
+- `trigger`: string
+- `name`: string
+- `callback`: **required** function - function(err, body, resp)
+
 
 ## Workflow deleteWorkflow
 Represents call to:
@@ -940,7 +960,7 @@ Represents call to:
 
 **Callback:**
 - `error`: Error or null
-- `body`: [DmnBpmnWrapper](#model-dmnbpmnwrapper)
+- `body`: [DmnBpmnExportWrapper](#model-dmnbpmnexportwrapper)
 - `resp`: Http response
 
 ## Workflow getWorkflowExportJson
@@ -1038,7 +1058,7 @@ Represents call to:
 
 **Callback:**
 - `error`: Error or null
-- `body`: [EditorWorkflow](#model-editorworkflow)
+- `body`: [ImportResponse](#model-importresponse)
 - `resp`: Http response
 
 ## Workflow updateWorkflowUpdateBpmndmn
@@ -1050,7 +1070,7 @@ Represents call to:
 **Arguments:**
 - `organizationKey`: **required** string
 - `editorWorkflowId`: **required** string
-- `dmnBpmnWrapper`: **required** object [DmnBpmnWrapper](#model-dmnbpmnwrapper)
+- `dmnBpmnImportWrapper`: **required** object [DmnBpmnImportWrapper](#model-dmnbpmnimportwrapper)
 - `callback`: **required** function - function(err, body, resp)
 
 
@@ -1288,6 +1308,49 @@ Represents call to:
 - `error`: Error or null
 - `body`: [Group](#model-group)
 - `resp`: Http response
+
+## Organization getGroupsMembers
+Represents call to:
+`GET /{organizationKey}/groups/{groupId}/members`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `groupId`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
+
+## Organization createGroupsMembers
+Represents call to:
+`POST /{organizationKey}/groups/{groupId}/members`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `groupId`: **required** string
+- `user`: **required** object [User](#model-user)
+- `callback`: **required** function - function(err, body, resp)
+
+
+**Callback:**
+- `error`: Error or null
+- `body`: [User](#model-user)
+- `resp`: Http response
+
+## Organization deleteGroupsMembers
+Represents call to:
+`DELETE /{organizationKey}/groups/{groupId}/members/{memberId}`
+
+> Requires authorization
+
+**Arguments:**
+- `organizationKey`: **required** string
+- `groupId`: **required** string
+- `memberId`: **required** string
+- `callback`: **required** function - function(err, body, resp)
+
 
 ## Organization getInfoLicenses
 Represents call to:
@@ -2054,6 +2117,7 @@ Represents call to:
 - `organizationKey`: **required** string
 - `emailAddress`: string
 - `name`: string
+- `groupId`: string
 - `offset`: number
 - `pagesize`: number
 - `callback`: **required** function - function(err, body, resp)
@@ -2144,6 +2208,7 @@ Represents call to:
 
 ## Model NewCase
 - `nameLower`: string
+- `access`: any _api type AccessControlList_
 - `hasDueDate`: boolean
 - `hasPriority`: boolean
 
@@ -2152,9 +2217,6 @@ Represents call to:
 [`Case.createCases`](#case-createcases)
 
 ## Model CaseDetail
-- `nameLower`: string
-- `hasDueDate`: boolean
-- `hasPriority`: boolean
 
 
 **Used by:**
@@ -2176,6 +2238,12 @@ Represents call to:
 [`Service.updateServiceAccount`](#service-updateserviceaccount)
 [`User.updateUser`](#user-updateuser)
 
+## Model CaseCancellation
+
+
+**Used by:**
+[`Case.cancel`](#case-cancel)
+
 ## Model Event
 
 
@@ -2186,13 +2254,13 @@ Represents call to:
 
 ## Model NewTask
 - `nameLower`: string
+- `access`: any _api type AccessControlList_
 
 
 **Used by:**
 [`Task.createTasks`](#task-createtasks)
 
 ## Model TaskDetail
-- `nameLower`: string
 
 
 **Used by:**
@@ -2226,20 +2294,25 @@ Represents call to:
 [`Workflow.createWorkflowCopy`](#workflow-createworkflowcopy)
 [`Workflow.createWorkflowVersionRestore`](#workflow-createworkflowversionrestore)
 
-## Model AbstractWorkflow
+## Model ImportResponse
 
 
 **Used by:**
 [`Workflow.createWorkflowsImportBpmn`](#workflow-createworkflowsimportbpmn)
-[`Workflow.createWorkflowsImportBpmndmn`](#workflow-createworkflowsimportbpmndmn)
+[`Workflow.updateWorkflowUpdateBpmn`](#workflow-updateworkflowupdatebpmn)
 
-## Model DmnBpmnWrapper
+## Model DmnBpmnImportWrapper
 
 
 **Used by:**
 [`Workflow.createWorkflowsImportBpmndmn`](#workflow-createworkflowsimportbpmndmn)
-[`Workflow.getWorkflowExportBpmndmn`](#workflow-getworkflowexportbpmndmn)
 [`Workflow.updateWorkflowUpdateBpmndmn`](#workflow-updateworkflowupdatebpmndmn)
+
+## Model AbstractWorkflow
+
+
+**Used by:**
+[`Workflow.createWorkflowsImportBpmndmn`](#workflow-createworkflowsimportbpmndmn)
 
 ## Model EditorWorkflow
 - `nameLower`: string
@@ -2250,7 +2323,6 @@ Represents call to:
 [`Workflow.updateWorkflow`](#workflow-updateworkflow)
 [`Workflow.getWorkflowExportJson`](#workflow-getworkflowexportjson)
 [`Workflow.createWorkflowLock`](#workflow-createworkflowlock)
-[`Workflow.updateWorkflowUpdateBpmn`](#workflow-updateworkflowupdatebpmn)
 [`Workflow.updateWorkflowUpdateBpmndmn`](#workflow-updateworkflowupdatebpmndmn)
 
 ## Model ScriptResult
@@ -2258,6 +2330,12 @@ Represents call to:
 
 **Used by:**
 [`Workflow.createWorkflowActivityTest`](#workflow-createworkflowactivitytest)
+
+## Model DmnBpmnExportWrapper
+
+
+**Used by:**
+[`Workflow.getWorkflowExportBpmndmn`](#workflow-getworkflowexportbpmndmn)
 
 ## Model FormInstance
 
@@ -2308,6 +2386,20 @@ Represents call to:
 [`Organization.getGroups`](#organization-getgroups)
 [`Organization.createGroups`](#organization-creategroups)
 [`Organization.updateGroups`](#organization-updategroups)
+
+## Model User
+- `features`: any _api type FeatureCache_
+- `emailAddressLower`: string
+- `passwordHash`: string
+- `passwordReset`: any _api type PasswordReset_
+- `permissions`: array any _api type Permission_
+- `token`: string
+
+
+**Used by:**
+[`Organization.createGroupsMembers`](#organization-creategroupsmembers)
+[`User.getUser`](#user-getuser)
+[`User.updateUser`](#user-updateuser)
 
 ## Model LdapConfiguration
 
@@ -2454,19 +2546,6 @@ Represents call to:
 
 **Used by:**
 [`User.createUsersReset`](#user-createusersreset)
-
-## Model User
-- `features`: any _api type FeatureCache_
-- `emailAddressLower`: string
-- `passwordHash`: string
-- `passwordReset`: any _api type PasswordReset_
-- `permissions`: array any _api type Permission_
-- `token`: string
-
-
-**Used by:**
-[`User.getUser`](#user-getuser)
-[`User.updateUser`](#user-updateuser)
 
 ## Model LeaveRequest
 

@@ -224,20 +224,12 @@
     } ]
   } ],
   "models" : {
-    "UserMailAddress" : {
-      "id" : "UserMailAddress",
+    "PatchUpdate" : {
+      "id" : "PatchUpdate",
       "properties" : { }
     },
-    "FileStream" : {
-      "id" : "FileStream",
-      "properties" : { }
-    },
-    "ActionInstanceEnd" : {
-      "id" : "ActionInstanceEnd",
-      "properties" : { }
-    },
-    "ScriptResult" : {
-      "id" : "ScriptResult",
+    "OauthStartRequest" : {
+      "id" : "OauthStartRequest",
       "properties" : { }
     },
     "EditorWorkflow" : {
@@ -248,17 +240,13 @@
         }
       }
     },
-    "DmnBpmnWrapper" : {
-      "id" : "DmnBpmnWrapper",
+    "DmnBpmnImportWrapper" : {
+      "id" : "DmnBpmnImportWrapper",
       "properties" : { }
     },
-    "NewWorkflow" : {
-      "id" : "NewWorkflow",
-      "properties" : {
-        "nameLower" : {
-          "type" : "string"
-        }
-      }
+    "FormInstance" : {
+      "id" : "FormInstance",
+      "properties" : { }
     },
     "User" : {
       "id" : "User",
@@ -286,166 +274,20 @@
         }
       }
     },
-    "RegistrationRequest" : {
-      "id" : "RegistrationRequest",
-      "properties" : { }
-    },
-    "About" : {
-      "id" : "About",
-      "properties" : { }
-    },
-    "Group" : {
-      "id" : "Group",
-      "properties" : { }
-    },
-    "NewCase" : {
-      "id" : "NewCase",
-      "properties" : {
-        "nameLower" : {
-          "type" : "string"
-        },
-        "hasDueDate" : {
-          "type" : "boolean"
-        },
-        "hasPriority" : {
-          "type" : "boolean"
-        }
-      }
-    },
-    "AbstractWorkflow" : {
-      "id" : "AbstractWorkflow",
-      "properties" : { }
-    },
-    "Organization" : {
-      "id" : "Organization",
-      "properties" : {
-        "created" : {
-          "type" : "LocalDateTime"
-        }
-      }
-    },
-    "StartInfo" : {
-      "id" : "StartInfo",
-      "properties" : { }
-    },
-    "OauthStartRequest" : {
-      "id" : "OauthStartRequest",
+    "ActionInstance" : {
+      "id" : "ActionInstance",
       "properties" : { }
     },
     "LdapConfiguration" : {
       "id" : "LdapConfiguration",
       "properties" : { }
     },
-    "Account" : {
-      "id" : "Account",
-      "properties" : { }
-    },
-    "LdapValidationResult" : {
-      "id" : "LdapValidationResult",
-      "properties" : { }
-    },
-    "ExecutableWorkflow" : {
-      "id" : "ExecutableWorkflow",
-      "properties" : { }
-    },
-    "FormInstance" : {
-      "id" : "FormInstance",
+    "About" : {
+      "id" : "About",
       "properties" : { }
     },
     "HandoverLogin" : {
       "id" : "HandoverLogin",
-      "properties" : { }
-    },
-    "LeaveRequest" : {
-      "id" : "LeaveRequest",
-      "properties" : { }
-    },
-    "TaskDetail" : {
-      "id" : "TaskDetail",
-      "properties" : {
-        "nameLower" : {
-          "type" : "string"
-        }
-      }
-    },
-    "FormInstanceField" : {
-      "id" : "FormInstanceField",
-      "properties" : { }
-    },
-    "File" : {
-      "id" : "File",
-      "properties" : { }
-    },
-    "NewAssignmentRequest" : {
-      "id" : "NewAssignmentRequest",
-      "properties" : { }
-    },
-    "Registration" : {
-      "id" : "Registration",
-      "properties" : {
-        "pictureId" : {
-          "type" : "object-id"
-        }
-      }
-    },
-    "NewUser" : {
-      "id" : "NewUser",
-      "properties" : { }
-    },
-    "ActionInstance" : {
-      "id" : "ActionInstance",
-      "properties" : { }
-    },
-    "LoginRequest" : {
-      "id" : "LoginRequest",
-      "properties" : { }
-    },
-    "ServiceLogin" : {
-      "id" : "ServiceLogin",
-      "properties" : { }
-    },
-    "CaseSummaries" : {
-      "id" : "CaseSummaries",
-      "properties" : { }
-    },
-    "PatchUpdate" : {
-      "id" : "PatchUpdate",
-      "properties" : { }
-    },
-    "OauthStartResponse" : {
-      "id" : "OauthStartResponse",
-      "properties" : { }
-    },
-    "LoginResponse" : {
-      "id" : "LoginResponse",
-      "properties" : { }
-    },
-    "License" : {
-      "id" : "License",
-      "properties" : { }
-    },
-    "EmptyObject" : {
-      "id" : "EmptyObject",
-      "properties" : { }
-    },
-    "PasswordResetConfirmation" : {
-      "id" : "PasswordResetConfirmation",
-      "properties" : { }
-    },
-    "LdapSynchronisationResult" : {
-      "id" : "LdapSynchronisationResult",
-      "properties" : { }
-    },
-    "SystemConfiguration" : {
-      "id" : "SystemConfiguration",
-      "properties" : { }
-    },
-    "VersionRequest" : {
-      "id" : "VersionRequest",
-      "properties" : { }
-    },
-    "PurchaseOrder" : {
-      "id" : "PurchaseOrder",
       "properties" : { }
     },
     "EditorWorkflowDetail" : {
@@ -456,11 +298,85 @@
         }
       }
     },
-    "CaseDetail" : {
-      "id" : "CaseDetail",
+    "FormInstanceField" : {
+      "id" : "FormInstanceField",
+      "properties" : { }
+    },
+    "OauthStartResponse" : {
+      "id" : "OauthStartResponse",
+      "properties" : { }
+    },
+    "Account" : {
+      "id" : "Account",
+      "properties" : { }
+    },
+    "SystemConfiguration" : {
+      "id" : "SystemConfiguration",
+      "properties" : { }
+    },
+    "CaseCancellation" : {
+      "id" : "CaseCancellation",
+      "properties" : { }
+    },
+    "VersionRequest" : {
+      "id" : "VersionRequest",
+      "properties" : { }
+    },
+    "StartInfo" : {
+      "id" : "StartInfo",
+      "properties" : { }
+    },
+    "ExecutableWorkflow" : {
+      "id" : "ExecutableWorkflow",
+      "properties" : { }
+    },
+    "CaseSummaries" : {
+      "id" : "CaseSummaries",
+      "properties" : { }
+    },
+    "NewTask" : {
+      "id" : "NewTask",
       "properties" : {
         "nameLower" : {
           "type" : "string"
+        },
+        "access" : {
+          "type" : "AccessControlList"
+        }
+      }
+    },
+    "DmnBpmnExportWrapper" : {
+      "id" : "DmnBpmnExportWrapper",
+      "properties" : { }
+    },
+    "NewUser" : {
+      "id" : "NewUser",
+      "properties" : { }
+    },
+    "LoginResponse" : {
+      "id" : "LoginResponse",
+      "properties" : { }
+    },
+    "PurchaseOrder" : {
+      "id" : "PurchaseOrder",
+      "properties" : { }
+    },
+    "LdapSynchronisationResult" : {
+      "id" : "LdapSynchronisationResult",
+      "properties" : { }
+    },
+    "LoginRequest" : {
+      "id" : "LoginRequest",
+      "properties" : { }
+    },
+    "NewCase" : {
+      "id" : "NewCase",
+      "properties" : {
+        "nameLower" : {
+          "type" : "string"
+        },
+        "access" : {
+          "type" : "AccessControlList"
         },
         "hasDueDate" : {
           "type" : "boolean"
@@ -470,13 +386,101 @@
         }
       }
     },
-    "NewTask" : {
-      "id" : "NewTask",
+    "TaskDetail" : {
+      "id" : "TaskDetail",
+      "properties" : { }
+    },
+    "ActionInstanceEnd" : {
+      "id" : "ActionInstanceEnd",
+      "properties" : { }
+    },
+    "File" : {
+      "id" : "File",
+      "properties" : { }
+    },
+    "ServiceLogin" : {
+      "id" : "ServiceLogin",
+      "properties" : { }
+    },
+    "NewWorkflow" : {
+      "id" : "NewWorkflow",
       "properties" : {
         "nameLower" : {
           "type" : "string"
         }
       }
+    },
+    "ImportResponse" : {
+      "id" : "ImportResponse",
+      "properties" : { }
+    },
+    "NewAssignmentRequest" : {
+      "id" : "NewAssignmentRequest",
+      "properties" : { }
+    },
+    "ScriptResult" : {
+      "id" : "ScriptResult",
+      "properties" : { }
+    },
+    "License" : {
+      "id" : "License",
+      "properties" : { }
+    },
+    "PasswordResetConfirmation" : {
+      "id" : "PasswordResetConfirmation",
+      "properties" : { }
+    },
+    "FileStream" : {
+      "id" : "FileStream",
+      "properties" : { }
+    },
+    "RegistrationRequest" : {
+      "id" : "RegistrationRequest",
+      "properties" : { }
+    },
+    "LeaveRequest" : {
+      "id" : "LeaveRequest",
+      "properties" : { }
+    },
+    "LdapValidationResult" : {
+      "id" : "LdapValidationResult",
+      "properties" : { }
+    },
+    "Organization" : {
+      "id" : "Organization",
+      "properties" : {
+        "created" : {
+          "type" : "LocalDateTime"
+        }
+      }
+    },
+    "Group" : {
+      "id" : "Group",
+      "properties" : { }
+    },
+    "UserMailAddress" : {
+      "id" : "UserMailAddress",
+      "properties" : { }
+    },
+    "Registration" : {
+      "id" : "Registration",
+      "properties" : {
+        "pictureId" : {
+          "type" : "object-id"
+        }
+      }
+    },
+    "CaseDetail" : {
+      "id" : "CaseDetail",
+      "properties" : { }
+    },
+    "AbstractWorkflow" : {
+      "id" : "AbstractWorkflow",
+      "properties" : { }
+    },
+    "EmptyObject" : {
+      "id" : "EmptyObject",
+      "properties" : { }
     },
     "Event" : {
       "id" : "Event",

@@ -33,7 +33,7 @@ lab.experiment('Cases', () => {
     });
 
     lab.test('cancel case', (done) => {
-      cases.cancel('test-org', 'case-1', (err) => {
+      cases.cancel('test-org', 'case-1', {}, (err) => {
         if (err) return done(err);
         scope.done();
         done();
