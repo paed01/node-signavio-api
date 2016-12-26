@@ -12,8 +12,8 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "make test-cov-lcov",
-    "doc": "node ./scripts/doc.js > ./docs/API.md"
+    "doc": "node ./scripts/doc.js > ./docs/API.md",
+    "test": "make test-cov-lcov"
   },
   "files": [
     "api/",

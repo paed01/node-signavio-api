@@ -1,4 +1,4 @@
-1.1.0 API Reference (v1)
+2.0.0 API Reference (v1)
 ===
 Auto-generated Api documentation.
 Base path: https://workflow.signavio.com/api/v1
