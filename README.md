@@ -1,7 +1,7 @@
 node signavio workflow api
 ==========================
 
-[![Build Status](https://secure.travis-ci.org/paed01/node-signavio-api.png)](http://travis-ci.org/paed01/node-signavio-api)[![Coverage Status](https://coveralls.io/repos/paed01/node-signavio-api/badge.svg?branch=master)](https://coveralls.io/r/paed01/node-signavio-api?branch=master)
+[![Project Status: Inactive - The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
 
 Unofficial node [signavio][1] workflow [api][2] wrapper.
 
